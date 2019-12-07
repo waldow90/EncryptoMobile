@@ -19,37 +19,48 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        buttonLogin.setOnClickListener{
-            if (ManageDB().CheckPin(this, loginPass.text.toString()))
-            {
+        var wrong = 0
+
+        buttonLogin.setOnClickListener {
+            if (ManageDB().CheckPin(this, loginPass.text.toString())) {
                 startActivity(Intent(this, AccountManager::class.java))
                 finish()
-            }
-            else
-            {
-                Toast.makeText(this, "Incorrect password", Toast.LENGTH_LONG).show()
+            } else {
+                wrong++
+                when (wrong) {
+                    1 -> Toast.makeText(
+                        this,
+                        "Incorrect PIN!\n2 tries left",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    2 -> Toast.makeText(
+                        this,
+                        "Incorrect PIN!\n1 try left",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    3 -> {
+                        Toast.makeText(
+                            this,
+                            "Incorrect PIN!\nPlease reset PIN",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        startActivity(Intent(this, SecurityQuestions::class.java))
+                        finish()
+                    }
+                }
             }
         }
 
-        if (ManageDB().CheckFirstTime(this)){
+        if (ManageDB().CheckFirstTime(this)) {
             ManageDB().AddDefault(this)
             startActivity(Intent(this, FirstLogin::class.java))
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        btnForgotpin.setOnClickListener {
+            startActivity(Intent(this, SecurityQuestions::class.java))
+            finish()
         }
     }
+
+
 }

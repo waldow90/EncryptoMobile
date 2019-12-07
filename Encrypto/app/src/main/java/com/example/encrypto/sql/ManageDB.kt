@@ -187,8 +187,7 @@ class ManageDB {
         t.join()
     }
 
-
-    /*fun CheckSequrityQuestion(answer: String, questionID: Int): Boolean{
+    fun CheckSequrityQuestion(context: Context, answer: String, questionID: Int): Boolean{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -202,5 +201,50 @@ class ManageDB {
         t.join()
 
         return dbAnswer == answer
-    }*/
+    }
+
+    fun GetSequrityQuestion(context: Context, questionID: Int): String{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var dbQuestion = ""
+        val t = Thread{
+            dbQuestion = db.dao().GetSecurityQuestion(questionID)
+        }
+        t.start()
+        t.join()
+
+        return dbQuestion
+    }
+
+    fun SetSetting(context: Context, setting: String, value: String){
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        val t = Thread{
+            db.dao().SetSetting(setting, value)
+        }
+        t.start()
+        t.join()
+    }
+
+    fun GetSetting(context: Context, setting: String): String{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var value = ""
+        val t = Thread{
+            value = db.dao().GetSetting(setting)
+        }
+        t.start()
+        t.join()
+
+        return value
+    }
 }

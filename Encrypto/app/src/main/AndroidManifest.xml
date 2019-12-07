@@ -10,9 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".AccountManager" />
+
+        <activity
+            android:name=".ResetPIN"
+            android:label="@string/title_activity_reset_pin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SecurityQuestions"
+            android:label="@string/title_activity_security_questions"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ShowAccount"
             android:label="@string/title_activity_show_account"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddAccount"
             android:label="@string/title_activity_add_account"
