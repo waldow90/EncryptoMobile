@@ -56,10 +56,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, FirstLogin::class.java))
         }
 
-        btnForgotpin.setOnClickListener {
+        txtForgotpin.setOnClickListener{
             startActivity(Intent(this, SecurityQuestions::class.java))
             finish()
         }
+
     }
 
 
