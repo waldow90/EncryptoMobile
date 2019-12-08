@@ -10,7 +10,7 @@
         <item>reply_all</item>
     </string-array>
 
-    <string-array name="passlenght">
+    <string-array name="passlength">
         <item>8</item>
         <item>9</item>
         <item>10</item>
