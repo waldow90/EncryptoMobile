@@ -3,6 +3,8 @@ package com.example.encrypto
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -25,5 +27,13 @@ class SettingsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val settingsprefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        val theme = settingsprefs.getBoolean("settingsTheme", false)
+        if(theme){setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)}
+        else if (!theme) {setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
     }
 }
