@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         var wrong = 0
 
         buttonLogin.setOnClickListener {
-            if (ManageDB().CheckPin(this, loginPass.text.toString())) {
+            if (ManageDB().checkPin(this, loginPass.text.toString())) {
                 startActivity(Intent(this, AccountManager::class.java))
                 finish()
             } else {
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                         finish()
                     }
                 }
+
             }
         }
 

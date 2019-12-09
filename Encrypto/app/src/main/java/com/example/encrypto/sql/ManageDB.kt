@@ -37,6 +37,8 @@ class ManageDB {
 
             db.dao().FirstTimeDone()
         }
+        db.close()
+
         t.start()
         t.join()
     }
@@ -53,6 +55,7 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
 
         if (ft == "1"){
             return false
@@ -76,9 +79,11 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
+
     }
 
-    fun CheckPin(context: Context, pin: String): Boolean{
+    fun checkPin(context: Context, pin: String): Boolean{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -90,7 +95,8 @@ class ManageDB {
         }
         t.start()
         t.join()
-        return dbPin == pin
+        db.close()
+        return Encryption().checkPin(dbPin, pin)
     }
 
     fun ChangePin(context: Context, pin: String){
@@ -100,10 +106,12 @@ class ManageDB {
             "DB"
         ).fallbackToDestructiveMigration().build()
         val t = Thread {
-            db.dao().ChangePin(pin)
+            db.dao().ChangePin(Encryption().encryptPin(pin))
         }
         t.start()
         t.join()
+        db.close()
+
     }
 
     fun GetAccounts (context: Context): List<String>{
@@ -118,6 +126,7 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
 
         return accounts
     }
@@ -142,6 +151,8 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
+
     }
 
     fun GetUsername (context: Context, account: String): String{
@@ -156,6 +167,8 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
+
         return username
     }
 
@@ -171,6 +184,8 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
+
         return password
     }
 
@@ -199,6 +214,7 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
 
         return dbAnswer == answer
     }
@@ -215,6 +231,7 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
 
         return dbQuestion
     }
@@ -230,6 +247,8 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
+
     }
 
     fun GetSetting(context: Context, setting: String): String{
@@ -244,6 +263,7 @@ class ManageDB {
         }
         t.start()
         t.join()
+        db.close()
 
         return value
     }
