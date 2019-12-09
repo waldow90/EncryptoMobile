@@ -6,7 +6,7 @@ import androidx.room.Room
 import com.example.encrypto.AddAccount
 
 class ManageDB {
-    fun AddDefault(context: Context){
+    fun addDefault(context: Context){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -43,7 +43,7 @@ class ManageDB {
         t.join()
     }
 
-    fun CheckFirstTime(context: Context): Boolean{
+    fun checkFirstTime(context: Context): Boolean{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -63,7 +63,7 @@ class ManageDB {
         return true
     }
 
-    fun AddSecurityQuestion(context: Context, id: Int, question: String, answer: String){
+    fun addSecurityQuestion(context: Context, id: Int, question: String, answer: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -99,7 +99,7 @@ class ManageDB {
         return Encryption().checkPin(dbPin, pin)
     }
 
-    fun ChangePin(context: Context, pin: String){
+    fun changePin(context: Context, pin: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -114,7 +114,7 @@ class ManageDB {
 
     }
 
-    fun GetAccounts (context: Context): List<String>{
+    fun getAccounts (context: Context): List<String>{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -131,7 +131,7 @@ class ManageDB {
         return accounts
     }
 
-    fun AddAccount (context: Context, account: String, username: String, password: String){
+    fun addAccount (context: Context, account: String, username: String, password: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -145,8 +145,8 @@ class ManageDB {
             }
             new.id = id
             new.account = account
-            new.username = username
-            new.password = password
+            new.username = Encryption().encrypt(username, db.dao().GetPin())
+            new.password = Encryption().encrypt(password, db.dao().GetPin())
             db.dao().Add(new)
         }
         t.start()
@@ -155,7 +155,7 @@ class ManageDB {
 
     }
 
-    fun GetUsername (context: Context, account: String): String{
+    fun getUsername (context: Context, account: String): String{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -163,7 +163,8 @@ class ManageDB {
         ).fallbackToDestructiveMigration().build()
         var username = ""
         val t = Thread{
-            username = db.dao().GetUsername(account)
+            username = Encryption().decrypt(db.dao().GetUsername(account), db.dao().GetPin())
+
         }
         t.start()
         t.join()
@@ -172,7 +173,7 @@ class ManageDB {
         return username
     }
 
-    fun GetPassword(context: Context, account: String): String{
+    fun getPassword(context: Context, account: String): String{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -180,7 +181,7 @@ class ManageDB {
         ).fallbackToDestructiveMigration().build()
         var password = ""
         val t = Thread{
-            password = db.dao().GetPassword(account)
+            password = Encryption().decrypt(db.dao().GetPassword(account), db.dao().GetPin())
         }
         t.start()
         t.join()
@@ -189,7 +190,7 @@ class ManageDB {
         return password
     }
 
-    fun DeleteAccount(context: Context, account: String){
+    fun deleteAccount(context: Context, account: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -202,7 +203,7 @@ class ManageDB {
         t.join()
     }
 
-    fun CheckSequrityQuestion(context: Context, answer: String, questionID: Int): Boolean{
+    fun checkSequrityQuestion(context: Context, answer: String, questionID: Int): Boolean{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -219,7 +220,7 @@ class ManageDB {
         return dbAnswer == answer
     }
 
-    fun GetSequrityQuestion(context: Context, questionID: Int): String{
+    fun getSequrityQuestion(context: Context, questionID: Int): String{
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
@@ -234,37 +235,5 @@ class ManageDB {
         db.close()
 
         return dbQuestion
-    }
-
-    fun SetSetting(context: Context, setting: String, value: String){
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        val t = Thread{
-            db.dao().SetSetting(setting, value)
-        }
-        t.start()
-        t.join()
-        db.close()
-
-    }
-
-    fun GetSetting(context: Context, setting: String): String{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var value = ""
-        val t = Thread{
-            value = db.dao().GetSetting(setting)
-        }
-        t.start()
-        t.join()
-        db.close()
-
-        return value
     }
 }

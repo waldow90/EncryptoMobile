@@ -2,7 +2,6 @@ package com.example.encrypto
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
@@ -17,7 +16,7 @@ class ResetPIN : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         buttonReset.setOnClickListener{
-            ManageDB().ChangePin(this, resetPIN.text.toString())
+            ManageDB().changePin(this, resetPIN.text.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

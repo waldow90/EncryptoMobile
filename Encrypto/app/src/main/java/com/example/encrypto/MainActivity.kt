@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (ManageDB().CheckFirstTime(this)) {
-            ManageDB().AddDefault(this)
+        if (ManageDB().checkFirstTime(this)) {
+            ManageDB().addDefault(this)
             startActivity(Intent(this, FirstLogin::class.java))
         }
 

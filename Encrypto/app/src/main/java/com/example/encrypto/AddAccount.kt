@@ -16,7 +16,7 @@ class AddAccount : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fab2.setOnClickListener{
-            ManageDB().AddAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
+            ManageDB().addAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
             finish()
         }
 

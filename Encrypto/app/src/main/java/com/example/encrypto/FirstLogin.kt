@@ -14,10 +14,10 @@ class FirstLogin : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         btnSetup.setOnClickListener{
-            ManageDB().ChangePin(this, PIN.text.toString())
-            ManageDB().AddSecurityQuestion(this, 2, Q1.text.toString(), A1.text.toString())
-            ManageDB().AddSecurityQuestion(this, 3, Q2.text.toString(), A2.text.toString())
-            ManageDB().AddSecurityQuestion(this, 4, Q3.text.toString(), A3.text.toString())
+            ManageDB().changePin(this, PIN.text.toString())
+            ManageDB().addSecurityQuestion(this, 2, Q1.text.toString(), A1.text.toString())
+            ManageDB().addSecurityQuestion(this, 3, Q2.text.toString(), A2.text.toString())
+            ManageDB().addSecurityQuestion(this, 4, Q3.text.toString(), A3.text.toString())
             finishActivity(0)
         }
     }

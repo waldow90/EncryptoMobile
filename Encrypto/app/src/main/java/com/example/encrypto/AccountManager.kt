@@ -1,13 +1,10 @@
 package com.example.encrypto
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
@@ -21,7 +18,7 @@ class AccountManager : AppCompatActivity() {
         setContentView(R.layout.activity_account_manager)
         setSupportActionBar(toolbar)
 
-        val acc = ManageDB().GetAccounts(this)
+        val acc = ManageDB().getAccounts(this)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, acc)
         listAccounts.adapter = adapter
 
