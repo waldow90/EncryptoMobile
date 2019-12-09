@@ -1,11 +1,8 @@
 package com.example.encrypto
 
 import android.os.Bundle
-import android.preference.PreferenceActivity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceFragment
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -17,8 +14,6 @@ class SettingsActivity : AppCompatActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
