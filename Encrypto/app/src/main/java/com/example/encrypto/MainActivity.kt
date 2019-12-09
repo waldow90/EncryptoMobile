@@ -2,8 +2,11 @@ package com.example.encrypto
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log.d
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import com.example.encrypto.sql.ManageDB
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -15,8 +18,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val array = ByteArray(10)
+        val array2 = ByteArray(20)
+        d("Lock", array.toString())
+        d("Lock", array2.toString())
         var wrong = 0
-
+//        Dark.setOnClickListener { setDefaultNightMode(MODE_NIGHT_YES)}
+//        Lights.setOnClickListener { setDefaultNightMode(MODE_NIGHT_NO) }
         buttonLogin.setOnClickListener {
             if (ManageDB().CheckPin(this, loginPass.text.toString())) {
                 startActivity(Intent(this, AccountManager::class.java))

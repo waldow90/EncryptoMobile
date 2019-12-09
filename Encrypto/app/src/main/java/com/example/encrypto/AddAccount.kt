@@ -1,13 +1,12 @@
 package com.example.encrypto
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
 import kotlinx.android.synthetic.main.activity_add_account.*
 import kotlinx.android.synthetic.main.content_add_account.*
-import org.w3c.dom.Entity
+
 
 class AddAccount : AppCompatActivity() {
 

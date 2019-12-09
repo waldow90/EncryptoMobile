@@ -1,7 +1,10 @@
 package com.example.encrypto
 
+import android.app.UiModeManager.MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.preference.PreferenceFragmentCompat
 
 class SettingsActivity : AppCompatActivity() {
@@ -14,6 +17,8 @@ class SettingsActivity : AppCompatActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
@@ -25,5 +30,18 @@ class SettingsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        /*Dark.setOnClickListener { AppCompatDelegate.MODE_NIGHT_YES }
+        Light.setOnClickListener { AppCompatDelegate.MODE_NIGHT_NO }*/
+        val settingsprefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        val theme = settingsprefs.getBoolean("settingsTheme", false)
+        if(theme){setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)}
+        else if (!theme) {setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
+
+
+
     }
 }
