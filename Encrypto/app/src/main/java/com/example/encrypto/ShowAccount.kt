@@ -3,7 +3,6 @@ package com.example.encrypto
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
-
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
 
@@ -16,7 +15,7 @@ class ShowAccount : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val selection = intent.getStringExtra("Account")
-        Account.text = selection
+        Account.text = selection!!
 
         Username.text = ManageDB().getUsername(this, selection)
 

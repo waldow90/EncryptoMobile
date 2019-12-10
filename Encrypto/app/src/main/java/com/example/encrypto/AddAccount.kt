@@ -19,19 +19,10 @@ class AddAccount : AppCompatActivity() {
             ManageDB().addAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
             finish()
         }
-
-        val settingspref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
-
-        generatePassword(settingspref.getString("settingsTheme", "24")?.toInt())
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
-    }
-
-    fun generatePassword(length: Int?) {
-
     }
 }

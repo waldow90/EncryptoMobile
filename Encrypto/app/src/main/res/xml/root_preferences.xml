@@ -1,5 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SettingsActivity" >
 
     <PreferenceCategory app:title="General">
         <ListPreference
@@ -15,7 +17,9 @@
             android:id="@+id/SettingsTheme"
             android:defaultValue="false"
             android:key="settingsTheme"
-            android:title="Enable dark theme" />
+            android:title="Enable dark theme"
+            />
+
     </PreferenceCategory>
 
 

@@ -1,6 +1,7 @@
 package com.example.encrypto.sql
 
-import java.math.BigInteger
+import android.util.Base64
+import android.util.Log.d
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
@@ -20,70 +21,85 @@ class Encryption {
         val salt = generateRandomSalt()
         val hash = generateRandomHash(input, salt)
 
-        return toHex(salt) + ":" + toHex(hash!!)
+        return fromByteArrayToString(salt) + ":" + fromByteArrayToString(hash!!)
+    }
+
+    private fun fromByteArrayToString(input: ByteArray): String? {
+        return Base64.encodeToString(input, Base64.NO_WRAP)
+    }
+
+    private fun fromStringToByteArray(input: String): ByteArray? {
+        return Base64.decode(input, Base64.NO_WRAP)
     }
 
     fun checkPin(savedPin: String, input: String): Boolean {
         val parts = savedPin.split(":")
-        val salt = fromHex(parts[0])
-        val hash = fromHex(parts[1])
-        val inputhash = generateRandomHash(input, salt)
-        return inputhash?.contentEquals(hash)!!
+        val salt = fromStringToByteArray(parts[0])
+        val hash = fromStringToByteArray(parts[1])
+        val inputhash = generateRandomHash(input, salt!!)
+        return inputhash?.contentEquals(hash!!)!!
     }
 
     fun encrypt(input: String, savedPin: String): String {
-        val key = fromHex(savedPin.split(":")[1])
+        val key = savedPin
         val salt = generateRandomSalt()
         val iv = generateRandomIv()
         val ivSpec = IvParameterSpec(iv)
-        val pbKeySpec = PBEKeySpec(toHex(key).toCharArray(), salt, iterations, hashSize)
-        val secretKeyFactory = SecretKeyFactory.getInstance("PBEwithHmacSHA512AndAES_256")
-        val keyBytes = secretKeyFactory.generateSecret(pbKeySpec).encoded
+
+        val keyBytes = generateRandomHash(key, salt)
         val keySpec = SecretKeySpec(keyBytes, "AES")
+
         val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec)
-        val encrypted = cipher.doFinal(input.toByteArray())
+        val encrypted = cipher.doFinal(fromStringToByteArray(input))
 
-        return toHex(salt) + ":" + toHex(iv) + ":" + toHex(encrypted)
+        val saltstr = fromByteArrayToString(salt)
+        val ivstr = fromByteArrayToString(iv)
+        val encryptedstr = fromByteArrayToString(encrypted)
+
+        d("hey", key)
+        d("hey", "salt: " + salt.contentToString())
+        d("hey", "salt: " + fromByteArrayToString(salt))
+        d("hey", "iv: " + iv.contentToString())
+        d("hey", "iv: " + fromByteArrayToString(iv))
+        d("hey", "encrypt: " + encrypted?.contentToString()!!)
+        d("hey", "encyptt: " + fromByteArrayToString(encrypted))
+
+        d("heyy", "$saltstr:$ivstr:$encryptedstr")
+
+        return "$saltstr:$ivstr:$encryptedstr"
     }
 
     fun decrypt(input: String, savedPin: String): String {
-        val key = fromHex(savedPin.split(":")[1])
+        val key = savedPin
 
         val parts = input.split(":")
-        val salt = fromHex(parts[0])
-        val iv = fromHex(parts[1])
-        val encrypted = fromHex((parts[2]))
+        val salt = fromStringToByteArray(parts[0])
+        val iv = fromStringToByteArray(parts[1])
+        val encrypted = fromStringToByteArray(parts[2])
+        val ivSpec = IvParameterSpec(iv)
 
-        val pbKeySpec = PBEKeySpec(toHex(key).toCharArray(), salt, 1324, 256)
-        val secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
-        val keyBytes = secretKeyFactory.generateSecret(pbKeySpec).encoded
+        d("heyy", input)
+        d("hey", key)
+        d("hey", "salt: " + salt?.contentToString()!!)
+        d("hey", "salt: " + fromByteArrayToString(salt))
+        d("hey", "iv: " + iv?.contentToString()!!)
+        d("hey", "iv: " + fromByteArrayToString(iv))
+        d("hey", "encrypt: " + encrypted?.contentToString()!!)
+        d("hey", "encyptt: " + fromByteArrayToString(encrypted))
+
+        val keyBytes = generateRandomHash(key, salt)
         val keySpec = SecretKeySpec(keyBytes, "AES")
 
         val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
-        val ivSpec = IvParameterSpec(iv)
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
         val decrypted = cipher.doFinal(encrypted)
-        return toHex(decrypted)
-    }
-
-    private fun toHex(array: ByteArray): String {
-        val bi = BigInteger(1, array)
-        val hex = bi.toString(16)
-        val paddingLength = array.size * 2 - hex.length
-        return if (paddingLength > 0) {
-            String.format("%0" + paddingLength + "d", 0) + hex
-        } else {
-            hex
+        d("heyy", fromByteArrayToString(decrypted)!!)
+        val decryptedstr = fromByteArrayToString(decrypted)
+        if (decryptedstr?.endsWith("==")!!){
+            decryptedstr
         }
-    }
-
-    private fun fromHex(hex: String): ByteArray {
-        val bytes = ByteArray(hex.length / 2)
-        for (i in bytes.indices) {
-            bytes[i] = Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16).toByte()
-        }
-        return bytes
+        return decryptedstr
     }
 
     private fun generateRandomSalt(): ByteArray {
@@ -94,7 +110,7 @@ class Encryption {
     }
 
     private fun generateRandomHash(password: String, salt: ByteArray): ByteArray? {
-        val pbKeySpec = PBEKeySpec(password.toCharArray(), salt, iterations, hashSize * 8)
+        val pbKeySpec = PBEKeySpec(password.toCharArray(), salt, iterations, hashSize)
         val secretKeyFactory = SecretKeyFactory.getInstance("PBEwithHmacSHA512AndAES_256")
         return secretKeyFactory.generateSecret(pbKeySpec).encoded
     }
