@@ -29,7 +29,7 @@ class ShowAccount : AppCompatActivity() {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mDialogView)
-                .setTitle("Confirm")
+                .setTitle("Confrim Identity")
             val mAlertDialog = mBuilder.show()
             mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
                 mAlertDialog.dismiss()
@@ -50,7 +50,7 @@ class ShowAccount : AppCompatActivity() {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mDialogView)
-                .setTitle("Confirm")
+                .setTitle("Confirm Identity")
             val mAlertDialog = mBuilder.show()
             mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
                 mAlertDialog.dismiss()

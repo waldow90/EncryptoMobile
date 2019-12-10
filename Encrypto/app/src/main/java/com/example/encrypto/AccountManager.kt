@@ -1,14 +1,15 @@
 package com.example.encrypto
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
 import com.example.encrypto.sql.ManageDB
 
 import kotlinx.android.synthetic.main.activity_account_manager.*
@@ -25,34 +26,33 @@ class AccountManager : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, acc)
         listAccounts.adapter = adapter
 
-        listAccounts.setOnItemClickListener{ parent, _, position, _ ->
-            val intent = Intent (this, ShowAccount::class.java)
+        listAccounts.setOnItemClickListener { parent, _, position, _ ->
+            val intent = Intent(this, ShowAccount::class.java)
             var selection = parent.getItemAtPosition(position).toString()
             intent.putExtra("Account", selection)
             startActivity(intent)
         }
 
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             startActivity(Intent(this, AddAccount::class.java))
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         return when (item.itemId) {
             R.id.action_settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
