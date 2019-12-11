@@ -12,10 +12,10 @@ import javax.crypto.spec.SecretKeySpec
 
 class Encryption {
 
-    //private val iterations = 173924
-    private val iterations = 1
+    private val iterations = 17392
     private val saltSize = 256
     private val hashSize = 256
+    private val add = "qyqyqyqyqyqyqyqy"
 
     fun encryptPin(input: String): String {
         val salt = generateRandomSalt()
@@ -25,11 +25,12 @@ class Encryption {
     }
 
     private fun fromByteArrayToString(input: ByteArray): String? {
-        return Base64.encodeToString(input, Base64.NO_WRAP)
+        return input.toString(Charsets.US_ASCII)
     }
 
     private fun fromStringToByteArray(input: String): ByteArray? {
-        return Base64.decode(input, Base64.NO_WRAP)
+        return input.toByteArray(Charsets.US_ASCII)
+
     }
 
     fun checkPin(savedPin: String, input: String): Boolean {
@@ -40,66 +41,54 @@ class Encryption {
         return inputhash?.contentEquals(hash!!)!!
     }
 
-    fun encrypt(input: String, savedPin: String): String {
-        val key = savedPin
+    fun encrypt(input: String, savedPin: String): ByteArray {
         val salt = generateRandomSalt()
         val iv = generateRandomIv()
         val ivSpec = IvParameterSpec(iv)
 
-        val keyBytes = generateRandomHash(key, salt)
-        val keySpec = SecretKeySpec(keyBytes, "AES")
+        val keyBytes = generateRandomHash(savedPin, salt)
 
+        val keySpec = SecretKeySpec(keyBytes, "AES")
         val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec)
-        val encrypted = cipher.doFinal(fromStringToByteArray(input))
 
-        val saltstr = fromByteArrayToString(salt)
-        val ivstr = fromByteArrayToString(iv)
-        val encryptedstr = fromByteArrayToString(encrypted)
+        val fixedinput: String = if (input.length <= 16){
+            input.plus(add)
+        } else{
+            input
+        }
 
-        d("hey", key)
-        d("hey", "salt: " + salt.contentToString())
-        d("hey", "salt: " + fromByteArrayToString(salt))
-        d("hey", "iv: " + iv.contentToString())
-        d("hey", "iv: " + fromByteArrayToString(iv))
-        d("hey", "encrypt: " + encrypted?.contentToString()!!)
-        d("hey", "encyptt: " + fromByteArrayToString(encrypted))
+        val encrypted = cipher.doFinal(fromStringToByteArray(fixedinput))
 
-        d("heyy", "$saltstr:$ivstr:$encryptedstr")
-
-        return "$saltstr:$ivstr:$encryptedstr"
+        val result = ByteArray(304)
+        System.arraycopy(salt, 0, result, 0, saltSize)
+        System.arraycopy(iv, 0, result, saltSize, 16)
+        System.arraycopy(encrypted, 0, result, saltSize + 16, 32)
+        return result
     }
 
-    fun decrypt(input: String, savedPin: String): String {
-        val key = savedPin
+    fun decrypt(input: ByteArray, savedPin: String): String {
 
-        val parts = input.split(":")
-        val salt = fromStringToByteArray(parts[0])
-        val iv = fromStringToByteArray(parts[1])
-        val encrypted = fromStringToByteArray(parts[2])
+        val salt = ByteArray(256)
+        val iv = ByteArray(16)
+        val encrypted = ByteArray(32)
+        System.arraycopy(input, 0, salt, 0, saltSize)
+        System.arraycopy(input, saltSize, iv, 0, 16)
+        System.arraycopy(input, saltSize + 16, encrypted, 0, 32)
         val ivSpec = IvParameterSpec(iv)
 
-        d("heyy", input)
-        d("hey", key)
-        d("hey", "salt: " + salt?.contentToString()!!)
-        d("hey", "salt: " + fromByteArrayToString(salt))
-        d("hey", "iv: " + iv?.contentToString()!!)
-        d("hey", "iv: " + fromByteArrayToString(iv))
-        d("hey", "encrypt: " + encrypted?.contentToString()!!)
-        d("hey", "encyptt: " + fromByteArrayToString(encrypted))
-
-        val keyBytes = generateRandomHash(key, salt)
+        val keyBytes = generateRandomHash(savedPin, salt)
         val keySpec = SecretKeySpec(keyBytes, "AES")
 
         val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
-        val decrypted = cipher.doFinal(encrypted)
-        d("heyy", fromByteArrayToString(decrypted)!!)
-        val decryptedstr = fromByteArrayToString(decrypted)
-        if (decryptedstr?.endsWith("==")!!){
-            decryptedstr
+        var decrypted = fromByteArrayToString(cipher.doFinal(encrypted))
+
+        if (decrypted?.endsWith(add)!!){
+            decrypted = decrypted.take(decrypted.length - 16)
         }
-        return decryptedstr
+
+        return decrypted
     }
 
     private fun generateRandomSalt(): ByteArray {
