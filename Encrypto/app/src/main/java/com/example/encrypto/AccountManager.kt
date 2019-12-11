@@ -1,15 +1,15 @@
 package com.example.encrypto
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuItemCompat
 import com.example.encrypto.sql.ManageDB
 
 import kotlinx.android.synthetic.main.activity_account_manager.*
@@ -36,11 +36,33 @@ class AccountManager : AppCompatActivity() {
         fab.setOnClickListener {
             startActivity(Intent(this, AddAccount::class.java))
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val item = menu.findItem(R.id.action_search)
+        val searchview = item.actionView as SearchView
+
+        searchview.setSearchableInfo(manager.getSearchableInfo(componentName))
+
+        searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchview.clearFocus()
+                searchview.setQuery("", false)
+                item.collapseActionView()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val acc1 = ManageDB().GetAccounts(this@AccountManager, "%$newText%")
+                val adapter = ArrayAdapter(this@AccountManager, android.R.layout.simple_list_item_1, acc1)
+                listAccounts.adapter = adapter
+                return false
+            }
+
+        })
         return true
     }
 
@@ -50,7 +72,6 @@ class AccountManager : AppCompatActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

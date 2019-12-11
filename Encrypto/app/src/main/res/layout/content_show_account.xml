@@ -74,24 +74,24 @@
         app:layout_constraintTop_toBottomOf="@+id/showPass" />
 
     <ImageButton
-        android:id="@+id/copyUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@+id/Username"
-        app:layout_constraintTop_toBottomOf="@+id/Account"
-        app:srcCompat="@drawable/ic_content_copy_white_24dp" />
-
-    <ImageButton
         android:id="@+id/copyPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/Password"
         app:layout_constraintTop_toBottomOf="@+id/copyUser"
+        app:srcCompat="@drawable/ic_content_copy_white_24dp" />
+
+    <ImageButton
+        android:id="@+id/copyUser"
+        android:layout_width="42dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/Username"
+        app:layout_constraintTop_toBottomOf="@+id/Account"
         app:srcCompat="@drawable/ic_content_copy_white_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

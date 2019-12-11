@@ -5,9 +5,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
@@ -17,13 +18,15 @@ import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
 
 class ShowAccount : AppCompatActivity() {
 
+    private var selection: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_account)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val selection = intent.getStringExtra("Account")
+        selection = intent.getStringExtra("Account")
         Account.text = selection
 
         Username.text = ManageDB().GetUsername(this, selection)
@@ -36,14 +39,16 @@ class ShowAccount : AppCompatActivity() {
             val mAlertDialog = mBuilder.show()
             mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
                 mAlertDialog.dismiss()
-                val pin = mDialogView.confirmdialog_pin.text.toString()
-                if (ManageDB().CheckPin(this, pin)) {
-                    Password.text = ManageDB().GetPassword(this, selection)
-                } else {
-                    Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
-                        .show()
-                }
+                showpass(mDialogView)
             }
+            mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener{_, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+                    showpass(mDialogView)
+                    mAlertDialog.dismiss()
+                    return@OnKeyListener true
+                }
+                return@OnKeyListener false
+            })
             mDialogView.confirmdialog_buttoncancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
@@ -73,27 +78,48 @@ class ShowAccount : AppCompatActivity() {
             }
 
             btnDelete.setOnClickListener {
-                val mDialogView =
-                    LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
+                val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
                 val mBuilder = AlertDialog.Builder(this)
                     .setView(mDialogView)
                     .setTitle("Confirm Identity")
                 val mAlertDialog = mBuilder.show()
                 mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
                     mAlertDialog.dismiss()
-                    val pin = mDialogView.confirmdialog_pin.text.toString()
-                    if (ManageDB().CheckPin(this, pin)) {
-                        ManageDB().DeleteAccount(this, selection)
-                        finish()
-                    } else {
-                        Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
-                            .show()
-                    }
+                    delacc(mDialogView)
                 }
+                mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                        delacc(mDialogView)
+                        mAlertDialog.dismiss()
+                        return@OnKeyListener true
+                    }
+                    return@OnKeyListener false
+                })
                 mDialogView.confirmdialog_buttoncancel.setOnClickListener {
                     mAlertDialog.dismiss()
                 }
             }
+        }
+    }
+
+    fun showpass(mDialogView: View) {
+        val pin = mDialogView.confirmdialog_pin.text.toString()
+        if (ManageDB().CheckPin(this, pin)) {
+            Password.text = ManageDB().GetPassword(this, selection)
+        } else {
+            Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    fun delacc(mDialogView: View) {
+        val pin = mDialogView.confirmdialog_pin.text.toString()
+        if (ManageDB().CheckPin(this, pin)) {
+            ManageDB().DeleteAccount(this, selection)
+            finish()
+        } else {
+            Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
