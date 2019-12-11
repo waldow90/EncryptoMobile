@@ -1,11 +1,16 @@
 package com.example.encrypto
 
-import android.app.UiModeManager.MODE_NIGHT_YES
+
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import kotlinx.android.synthetic.main. activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -17,6 +22,7 @@ class SettingsActivity : AppCompatActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
 
     }
@@ -32,16 +38,19 @@ class SettingsActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
+
     override fun onStop() {
         super.onStop()
-        /*Dark.setOnClickListener { AppCompatDelegate.MODE_NIGHT_YES }
-        Light.setOnClickListener { AppCompatDelegate.MODE_NIGHT_NO }*/
-        val settingsprefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        val settingsprefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+
         val theme = settingsprefs.getBoolean("settingsTheme", false)
-        if(theme){setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)}
-        else if (!theme) {setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
-
-
-
+        if (theme) {
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else if (!theme) {
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
+
+
 }

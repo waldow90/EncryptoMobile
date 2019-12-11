@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/copygeb"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -29,6 +30,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:text="TextView"
+        android:textIsSelectable="true"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +44,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:text="•••••••"
+        android:textIsSelectable="true"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,4 +69,25 @@
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showPass" />
+
+    <ImageButton
+        android:id="@+id/PassCopy"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="205dp"
+        app:layout_constraintStart_toEndOf="@+id/Account"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCopyDrawable" />
+
+    <ImageButton
+        android:id="@+id/gebcopy"
+        android:layout_width="32dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="165dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Username"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="?attr/actionModeCopyDrawable" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

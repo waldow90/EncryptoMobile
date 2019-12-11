@@ -15,6 +15,7 @@
             android:id="@+id/SettingsTheme"
             android:defaultValue="true"
             android:key="settingsTheme"
+            android:onClick='"SendMessage"'
             android:title="Enable dark theme" />
 <!--        <Button-->
 <!--            android:id="@+id/Dark"-->

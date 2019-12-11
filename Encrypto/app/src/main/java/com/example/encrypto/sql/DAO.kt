@@ -35,6 +35,9 @@ interface DAO {
     @Query("DELETE FROM DB WHERE account = :account")
     fun DeleteAccount(account: String)
 
+    @Query("SELECT account FROM DB WHERE account = :account")
+    fun SearchAccount(account: String): String
+
     @Query("SELECT username FROM DB WHERE account = :account")
     fun GetSetting(account: String): String
 

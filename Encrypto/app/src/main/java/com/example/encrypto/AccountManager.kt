@@ -1,11 +1,15 @@
 package com.example.encrypto
 
+
 import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +17,7 @@ import com.example.encrypto.sql.ManageDB
 
 import kotlinx.android.synthetic.main.activity_account_manager.*
 import kotlinx.android.synthetic.main.content_account_manager.*
+import kotlinx.android.synthetic.main.content_show_account.*
 
 class AccountManager : AppCompatActivity() {
 
@@ -20,6 +25,7 @@ class AccountManager : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_manager)
         setSupportActionBar(toolbar)
+
 
         val acc = ManageDB().GetAccounts(this)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, acc)
@@ -37,11 +43,9 @@ class AccountManager : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
