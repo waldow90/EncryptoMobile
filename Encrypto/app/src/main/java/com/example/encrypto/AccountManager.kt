@@ -41,8 +41,6 @@ class AccountManager : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        val searchItem = menu.findItem(R.id.action_search)
-
         return true
     }
 

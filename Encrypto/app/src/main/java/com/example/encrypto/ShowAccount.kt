@@ -1,6 +1,9 @@
 package com.example.encrypto
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -44,27 +47,52 @@ class ShowAccount : AppCompatActivity() {
             mDialogView.confirmdialog_buttoncancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
-        }
 
-        btnDelete.setOnClickListener {
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
-            val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
-                .setTitle("Confirm Identity")
-            val mAlertDialog = mBuilder.show()
-            mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
-                mAlertDialog.dismiss()
-                val pin = mDialogView.confirmdialog_pin.text.toString()
-                if (ManageDB().CheckPin(this, pin)) {
-                    ManageDB().DeleteAccount(this, selection)
-                    finish()
-                } else {
-                    Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
-                        .show()
-                }
+            copyUser.setOnClickListener {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("label", Username.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(
+                    this,
+                    "Copied Username",
+                    Toast.LENGTH_SHORT
+                ).show()
+
             }
-            mDialogView.confirmdialog_buttoncancel.setOnClickListener {
-                mAlertDialog.dismiss()
+
+            copyPass.setOnClickListener {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("label", Password.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(
+                    this,
+                    "Copied Password!",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+
+            btnDelete.setOnClickListener {
+                val mDialogView =
+                    LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
+                val mBuilder = AlertDialog.Builder(this)
+                    .setView(mDialogView)
+                    .setTitle("Confirm Identity")
+                val mAlertDialog = mBuilder.show()
+                mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
+                    mAlertDialog.dismiss()
+                    val pin = mDialogView.confirmdialog_pin.text.toString()
+                    if (ManageDB().CheckPin(this, pin)) {
+                        ManageDB().DeleteAccount(this, selection)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+                mDialogView.confirmdialog_buttoncancel.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
             }
         }
     }
