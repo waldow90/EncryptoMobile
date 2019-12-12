@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-
     <PreferenceCategory app:title="General">
         <ListPreference
+            android:id="@+id/PassLength"
             app:defaultValue="24"
             app:entries="@array/passlength"
             app:entryValues="@array/passlength"
@@ -12,17 +12,20 @@
             app:summary="The length of the custom generated password"
             app:title="Password length" />
 
-<!--        <SwitchPreference
-            android:id="@+id/SettingsTheme"
-            android:defaultValue="false"
-            android:key="settingsTheme"
-            android:title="Enable dark theme" />-->
-
         <com.example.encrypto.ToggleDarkMode
+            android:id="@+id/Theme"
             android:defaultValue="false"
             android:key="settingsTheme"
             android:title="Enable dark theme" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="TODO">
+        <com.example.encrypto.ChangePin
+            android:id="@+id/ChangePin"
+            android:defaultValue="Default value"
+            android:key="ChangePin"
+            android:title="Change Pin" />
     </PreferenceCategory>
 
 </PreferenceScreen>

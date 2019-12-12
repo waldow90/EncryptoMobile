@@ -78,6 +78,8 @@ class ManageDB {
         return correct
     }
 
+    //TODO IMPORTANT decrypt and encrypt with new pin
+
     fun changePin(context: Context, inputPin: String){
         val db = Room.databaseBuilder(
             context,

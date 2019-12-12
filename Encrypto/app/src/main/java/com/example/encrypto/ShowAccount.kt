@@ -50,55 +50,52 @@ class ShowAccount : AppCompatActivity() {
             mDialogView.confirmdialog_buttoncancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
-
-            copyUser.setOnClickListener {
-                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("label", Username.text.toString())
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(
-                    this,
-                    "Copied Username",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-            copyPass.setOnClickListener {
-                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("label", Password.text.toString())
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(
-                    this,
-                    "Copied Password!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
         }
 
-            btnDelete.setOnClickListener {
-                val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
-                val mBuilder = AlertDialog.Builder(this)
-                    .setView(mDialogView)
-                    .setTitle("Confirm Identity")
-                val mAlertDialog = mBuilder.show()
-                mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
-                    mAlertDialog.dismiss()
-                    delacc(mDialogView)
-                }
-                mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                        delacc(mDialogView)
-                        mAlertDialog.dismiss()
-                        return@OnKeyListener true
-                    }
-                    return@OnKeyListener false
-                })
-                mDialogView.confirmdialog_buttoncancel.setOnClickListener {
-                    mAlertDialog.dismiss()
-                }
-            }
+        copyUser.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", Username.text.toString())
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(
+                this,
+                "Copied Username",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
+        copyPass.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", Password.text.toString())
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(
+                this,
+                "Copied Password!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        btnDelete.setOnClickListener {
+            val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
+            val mBuilder = AlertDialog.Builder(this)
+                .setView(mDialogView)
+                .setTitle("Confirm Identity")
+            val mAlertDialog = mBuilder.show()
+            mDialogView.confirmdialog_buttonconfirm.setOnClickListener {
+                mAlertDialog.dismiss()
+                delacc(mDialogView)
+            }
+            mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    delacc(mDialogView)
+                    mAlertDialog.dismiss()
+                    return@OnKeyListener true
+                }
+                return@OnKeyListener false
+            })
+            mDialogView.confirmdialog_buttoncancel.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+        }
     }
 
     private fun showpass(mDialogView: View) {

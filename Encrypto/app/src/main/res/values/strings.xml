@@ -42,6 +42,10 @@
     <string name="enter_new_pin">Enter new PIN</string>
     <string name="reset">Reset</string>
     <string name="search">Search</string>
+    <string name="answer_cannot_be_empty">Answer cannot be empty</string>
+    <string name="question_cannot_be_empty">Question cannot be empty</string>
+    <string name="pin_length_warning">PIN length should be between 4 and 8</string>
+    <string name="enter_old_pin">Enter old PIN</string>
 
     <!-- Preference Titles -->
 

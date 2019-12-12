@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
+        if (ManageDB().checkFirstTime(this)) {
+            startActivity(Intent(this, FirstLogin::class.java))
+        }
+
         buttonLogin.setOnClickListener {
             login()
         }
@@ -40,11 +44,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-
-        if (ManageDB().checkFirstTime(this)) {
-            ManageDB().addDefault(this)
-            startActivity(Intent(this, FirstLogin::class.java))
-        }
 
         txtForgotpin.setOnClickListener{
             startActivity(Intent(this, SecurityQuestions::class.java))
