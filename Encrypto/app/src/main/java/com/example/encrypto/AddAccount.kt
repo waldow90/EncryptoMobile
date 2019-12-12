@@ -21,7 +21,7 @@ class AddAccount : AppCompatActivity() {
         }
 
         buttonGen.setOnClickListener{
-            Password.setText(CustomPasswordGenerator().GeneratePassword(this))
+            Password.setText(CustomPasswordGenerator().generatePassword(this))
         }
     }
 

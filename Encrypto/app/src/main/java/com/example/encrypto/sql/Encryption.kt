@@ -28,7 +28,6 @@ class Encryption {
         val salt = Base64.decode(parts[0], Base64.NO_WRAP)
         val hash = Base64.decode(parts[1], Base64.NO_WRAP)
         val inputhash = generateRandomHash(input, salt)
-        val lolz = inputhash
         return inputhash?.contentEquals(hash)!!
     }
 

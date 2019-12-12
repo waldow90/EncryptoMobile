@@ -15,7 +15,6 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="128dp"
         android:layout_marginEnd="64dp"
-        android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,6 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
-        android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +39,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
-        android:text="•••••••"
+        android:text="@string/hiddenpassword"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +53,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="215dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="Show Password"
+        android:text="@string/show_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
@@ -68,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="215dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="Delete Account"
+        android:text="@string/delete_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showPass" />
@@ -81,7 +79,8 @@
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/Password"
         app:layout_constraintTop_toBottomOf="@+id/copyUser"
-        app:srcCompat="@drawable/ic_content_copy_white_24dp" />
+        app:srcCompat="@drawable/ic_content_copy_white_24dp"
+        android:contentDescription="@string/copypassimage" />
 
     <ImageButton
         android:id="@+id/copyUser"
@@ -92,6 +91,7 @@
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/Username"
         app:layout_constraintTop_toBottomOf="@+id/Account"
-        app:srcCompat="@drawable/ic_content_copy_white_24dp" />
+        app:srcCompat="@drawable/ic_content_copy_white_24dp"
+        android:contentDescription="@string/copyuserimage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

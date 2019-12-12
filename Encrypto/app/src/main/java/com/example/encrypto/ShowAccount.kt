@@ -6,12 +6,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
-
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
 import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
@@ -26,13 +24,13 @@ class ShowAccount : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        selection = intent.getStringExtra("Account")
+        selection = intent.getStringExtra("Account")!!
         Account.text = selection
 
         Username.text = ManageDB().getUsername(this, selection)
 
         showPass.setOnClickListener {
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
+            val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mDialogView)
                 .setTitle("Confrim Identity")
@@ -41,8 +39,8 @@ class ShowAccount : AppCompatActivity() {
                 mAlertDialog.dismiss()
                 showpass(mDialogView)
             }
-            mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener{_, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+            mDialogView.confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     showpass(mDialogView)
                     mAlertDialog.dismiss()
                     return@OnKeyListener true
@@ -76,9 +74,10 @@ class ShowAccount : AppCompatActivity() {
                 ).show()
 
             }
+        }
 
             btnDelete.setOnClickListener {
-                val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
+                val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
                 val mBuilder = AlertDialog.Builder(this)
                     .setView(mDialogView)
                     .setTitle("Confirm Identity")
@@ -99,10 +98,10 @@ class ShowAccount : AppCompatActivity() {
                     mAlertDialog.dismiss()
                 }
             }
-        }
+
     }
 
-    fun showpass(mDialogView: View) {
+    private fun showpass(mDialogView: View) {
         val pin = mDialogView.confirmdialog_pin.text.toString()
         if (ManageDB().checkPin(this, pin)) {
             Password.text = ManageDB().getPassword(this, selection)
@@ -112,7 +111,7 @@ class ShowAccount : AppCompatActivity() {
         }
     }
 
-    fun delacc(mDialogView: View) {
+    private fun delacc(mDialogView: View) {
         val pin = mDialogView.confirmdialog_pin.text.toString()
         if (ManageDB().checkPin(this, pin)) {
             ManageDB().deleteAccount(this, selection)

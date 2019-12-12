@@ -27,7 +27,7 @@ class AccountManager : AppCompatActivity() {
 
         listAccounts.setOnItemClickListener { parent, _, position, _ ->
             val intent = Intent(this, ShowAccount::class.java)
-            var selection = parent.getItemAtPosition(position).toString()
+            val selection = parent.getItemAtPosition(position).toString()
             intent.putExtra("Account", selection)
             startActivity(intent)
         }

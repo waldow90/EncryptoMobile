@@ -7,7 +7,7 @@ import java.security.SecureRandom
 
 
 class CustomPasswordGenerator {
-    fun GeneratePassword(context: Context): String {
+    fun generatePassword(context: Context): String {
         val settings = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         val lenght = settings.getString("settingsPasslength", "24")?.toInt()
         val bytes = ByteArray(lenght!!)

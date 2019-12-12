@@ -16,11 +16,12 @@
         android:layout_marginTop="128dp"
         android:layout_marginEnd="48dp"
         android:ems="10"
-        android:hint="Accountname"
+        android:hint="@string/account_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="@string/account_name"/>
 
     <EditText
         android:id="@+id/Username"
@@ -30,11 +31,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Account" />
+        app:layout_constraintTop_toBottomOf="@+id/Account"
+        android:autofillHints="@string/username"/>
 
     <EditText
         android:id="@+id/Password"
@@ -44,11 +46,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Username" />
+        app:layout_constraintTop_toBottomOf="@+id/Username"
+        tools:ignore="TextFields"
+        android:autofillHints="@string/password"/>
 
     <Button
         android:id="@+id/buttonGen"
@@ -57,7 +61,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="Generate custom password"
+        android:text="@string/generate_custom_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
 

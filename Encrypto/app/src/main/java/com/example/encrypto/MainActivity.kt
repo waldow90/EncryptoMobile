@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun login(){
+    private fun login(){
         if (ManageDB().checkPin(this, loginPass.text.toString())) {
             startActivity(Intent(this, AccountManager::class.java))
             finish()
