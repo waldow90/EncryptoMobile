@@ -1,7 +1,6 @@
 package com.example.encrypto
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isInvisible
 import com.example.encrypto.sql.ManageDB
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -43,8 +41,8 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-        if (ManageDB().CheckFirstTime(this)) {
-            ManageDB().AddDefault(this)
+        if (ManageDB().checkFirstTime(this)) {
+            ManageDB().addDefault(this)
             startActivity(Intent(this, FirstLogin::class.java))
         }
 
@@ -72,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun login(){
-        if (ManageDB().CheckPin(this, loginPass.text.toString())) {
+        if (ManageDB().checkPin(this, loginPass.text.toString())) {
             startActivity(Intent(this, AccountManager::class.java))
             finish()
         } else {

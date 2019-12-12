@@ -29,7 +29,7 @@ class ShowAccount : AppCompatActivity() {
         selection = intent.getStringExtra("Account")
         Account.text = selection
 
-        Username.text = ManageDB().GetUsername(this, selection)
+        Username.text = ManageDB().getUsername(this, selection)
 
         showPass.setOnClickListener {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_pin, null)
@@ -104,8 +104,8 @@ class ShowAccount : AppCompatActivity() {
 
     fun showpass(mDialogView: View) {
         val pin = mDialogView.confirmdialog_pin.text.toString()
-        if (ManageDB().CheckPin(this, pin)) {
-            Password.text = ManageDB().GetPassword(this, selection)
+        if (ManageDB().checkPin(this, pin)) {
+            Password.text = ManageDB().getPassword(this, selection)
         } else {
             Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
                 .show()
@@ -114,8 +114,8 @@ class ShowAccount : AppCompatActivity() {
 
     fun delacc(mDialogView: View) {
         val pin = mDialogView.confirmdialog_pin.text.toString()
-        if (ManageDB().CheckPin(this, pin)) {
-            ManageDB().DeleteAccount(this, selection)
+        if (ManageDB().checkPin(this, pin)) {
+            ManageDB().deleteAccount(this, selection)
             finish()
         } else {
             Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)

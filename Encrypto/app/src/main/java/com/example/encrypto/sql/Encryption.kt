@@ -1,5 +1,6 @@
 package com.example.encrypto.sql
 
+import android.util.Base64
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
@@ -19,24 +20,16 @@ class Encryption {
         val salt = generateRandomSalt()
         val hash = generateRandomHash(input, salt)
 
-        return fromByteArrayToString(salt) + ":" + fromByteArrayToString(hash!!)
-    }
-
-    private fun fromByteArrayToString(input: ByteArray): String? {
-        return input.toString(Charsets.US_ASCII)
-    }
-
-    private fun fromStringToByteArray(input: String): ByteArray? {
-        return input.toByteArray(Charsets.US_ASCII)
-
+        return Base64.encodeToString(salt, Base64.NO_WRAP) + ":" + Base64.encodeToString(hash, Base64.NO_WRAP)
     }
 
     fun checkPin(savedPin: String, input: String): Boolean {
         val parts = savedPin.split(":")
-        val salt = fromStringToByteArray(parts[0])
-        val hash = fromStringToByteArray(parts[1])
-        val inputhash = generateRandomHash(input, salt!!)
-        return inputhash?.contentEquals(hash!!)!!
+        val salt = Base64.decode(parts[0], Base64.NO_WRAP)
+        val hash = Base64.decode(parts[1], Base64.NO_WRAP)
+        val inputhash = generateRandomHash(input, salt)
+        val lolz = inputhash
+        return inputhash?.contentEquals(hash)!!
     }
 
     fun encrypt(input: String, savedPin: String): ByteArray {
@@ -56,7 +49,7 @@ class Encryption {
             input
         }
 
-        val encrypted = cipher.doFinal(fromStringToByteArray(fixedinput))
+        val encrypted = cipher.doFinal(fixedinput.tobytearray())
 
         val result = ByteArray(304)
         System.arraycopy(salt, 0, result, 0, saltSize)
@@ -80,9 +73,9 @@ class Encryption {
 
         val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
-        var decrypted = fromByteArrayToString(cipher.doFinal(encrypted))
+        var decrypted = (cipher.doFinal(encrypted).tostring())
 
-        if (decrypted?.endsWith(add)!!){
+        if (decrypted.endsWith(add)){
             decrypted = decrypted.take(decrypted.length - 16)
         }
 
@@ -108,4 +101,8 @@ class Encryption {
         random.nextBytes(iv)
         return iv
     }
+
+    private fun String.tobytearray(): ByteArray {return this.toByteArray(Charsets.US_ASCII)}
+
+    private fun ByteArray.tostring(): String {return this.toString(Charsets.US_ASCII)}
 }

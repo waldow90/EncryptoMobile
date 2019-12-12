@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
@@ -22,7 +21,7 @@ class AccountManager : AppCompatActivity() {
         setContentView(R.layout.activity_account_manager)
         setSupportActionBar(toolbar)
 
-        val acc = ManageDB().GetAccounts(this)
+        val acc = ManageDB().getAccounts(this)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, acc)
         listAccounts.adapter = adapter
 
@@ -56,7 +55,7 @@ class AccountManager : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val acc1 = ManageDB().GetAccounts(this@AccountManager, "%$newText%")
+                val acc1 = ManageDB().getAccounts(this@AccountManager, "%$newText%")
                 val adapter = ArrayAdapter(this@AccountManager, android.R.layout.simple_list_item_1, acc1)
                 listAccounts.adapter = adapter
                 return false

@@ -16,5 +16,5 @@ class Entity {
     var username: String = ""
 
     @ColumnInfo
-    var password: String = ""
+    var password: ByteArray? = null
 }

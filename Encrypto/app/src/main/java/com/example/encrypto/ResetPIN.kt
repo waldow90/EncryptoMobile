@@ -22,7 +22,7 @@ class ResetPIN : AppCompatActivity() {
                     .show()
 
             } else {
-                ManageDB().ChangePin(this, resetPIN.text.toString())
+                ManageDB().changePin(this, resetPIN.text.toString())
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
