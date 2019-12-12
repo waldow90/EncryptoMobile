@@ -2,7 +2,7 @@ package com.example.encrypto
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.sql.ManageDB
 
@@ -16,16 +16,11 @@ class ResetPIN : AppCompatActivity() {
         setContentView(R.layout.activity_reset_pin)
         setSupportActionBar(toolbar)
 
-        buttonReset.setOnClickListener {
-            if (resetPIN.text.length < 4) {
-                Toast.makeText(this, "PIN should be between 4 and 8 characters", Toast.LENGTH_LONG)
-                    .show()
-
-            } else {
-                ManageDB().ChangePin(this, resetPIN.text.toString())
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
+        buttonReset.setOnClickListener{
+            ManageDB().ChangePin(this, resetPIN.text.toString())
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
+
 }

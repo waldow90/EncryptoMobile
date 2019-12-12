@@ -20,9 +20,6 @@ interface DAO {
     @Query("SELECT account FROM DB WHERE id >= 20")
     fun GetAccounts(): List<String>
 
-    @Query("SELECT account FROM DB WHERE id>= 20 AND account LIKE :input")
-    fun GetAccounts(input: String): List<String>
-
     @Query("UPDATE DB SET password = :PIN WHERE id = 1")
     fun ChangePin(PIN: String)
 
@@ -37,9 +34,6 @@ interface DAO {
 
     @Query("DELETE FROM DB WHERE account = :account")
     fun DeleteAccount(account: String)
-
-    @Query("SELECT account FROM DB WHERE account = :account")
-    fun SearchAccount(account: String): String
 
     @Query("SELECT username FROM DB WHERE account = :account")
     fun GetSetting(account: String): String

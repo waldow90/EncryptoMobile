@@ -21,32 +21,9 @@
 
         <com.example.encrypto.ToggleDarkMode
             android:id="@+id/SettingsTheme"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="settingsTheme"
-            android:onClick='"SendMessage"'
             android:title="Enable dark theme" />
-<<<<<<< HEAD
-<!--        <Button-->
-<!--            android:id="@+id/Dark"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="220dp"-->
-<!--            android:layout_marginTop="49dp"-->
-<!--            android:text="Dark"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/Dark" />-->
-<!--        <Button-->
-<!--            android:id="@+id/Light"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="220dp"-->
-<!--            android:layout_marginTop="49dp"-->
-<!--            android:text="Dark"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/Light" />-->
-    </PreferenceCategory>
-=======
->>>>>>> b10e0b2ba5ea1085f02744dd5f6fb98a508fee87
 
     </PreferenceCategory>
 

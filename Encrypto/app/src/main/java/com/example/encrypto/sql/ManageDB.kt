@@ -128,23 +128,6 @@ class ManageDB {
         return accounts
     }
 
-    fun GetAccounts (context: Context, input: String): List<String>{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var accounts: List<String> = emptyList()
-        val t = Thread{
-            accounts = db.dao().GetAccounts(input)
-        }
-        t.start()
-        t.join()
-        db.close()
-
-        return accounts
-    }
-
     fun AddAccount (context: Context, account: String, username: String, password: String){
         val db = Room.databaseBuilder(
             context,
