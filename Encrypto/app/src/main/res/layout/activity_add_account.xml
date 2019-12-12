@@ -13,7 +13,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:maxImageSize="48dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_check_white_24dp" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

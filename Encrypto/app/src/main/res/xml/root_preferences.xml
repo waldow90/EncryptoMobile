@@ -1,5 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
 
     <PreferenceCategory app:title="General">
         <ListPreference
@@ -11,12 +13,19 @@
             app:summary="The length of the custom generated password"
             app:title="Password length" />
 
-        <SwitchPreference
+<!--        <SwitchPreference
+            android:id="@+id/SettingsTheme"
+            android:defaultValue="false"
+            android:key="settingsTheme"
+            android:title="Enable dark theme" />-->
+
+        <com.example.encrypto.ToggleDarkMode
             android:id="@+id/SettingsTheme"
             android:defaultValue="true"
             android:key="settingsTheme"
             android:onClick='"SendMessage"'
             android:title="Enable dark theme" />
+<<<<<<< HEAD
 <!--        <Button-->
 <!--            android:id="@+id/Dark"-->
 <!--            android:layout_width="wrap_content"-->
@@ -36,6 +45,9 @@
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toBottomOf="@+id/Light" />-->
     </PreferenceCategory>
+=======
+>>>>>>> b10e0b2ba5ea1085f02744dd5f6fb98a508fee87
 
+    </PreferenceCategory>
 
 </PreferenceScreen>

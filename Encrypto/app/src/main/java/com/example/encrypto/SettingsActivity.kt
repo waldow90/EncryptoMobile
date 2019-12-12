@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main. activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class SettingsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
@@ -23,8 +22,11 @@ class SettingsActivity : AppCompatActivity() {
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b10e0b2ba5ea1085f02744dd5f6fb98a508fee87
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {

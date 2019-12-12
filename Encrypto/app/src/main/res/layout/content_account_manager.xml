@@ -10,6 +10,7 @@
 
     <ListView
         android:id="@+id/listAccounts"
+<<<<<<< HEAD
         android:layout_width="402dp"
         android:layout_height="627dp"
         android:layout_marginStart="1dp"
@@ -22,4 +23,15 @@
 
     </ListView>
 
+=======
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+>>>>>>> b10e0b2ba5ea1085f02744dd5f6fb98a508fee87
 </androidx.constraintlayout.widget.ConstraintLayout>

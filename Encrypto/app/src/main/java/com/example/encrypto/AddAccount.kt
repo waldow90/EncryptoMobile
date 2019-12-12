@@ -20,6 +20,10 @@ class AddAccount : AppCompatActivity() {
             ManageDB().AddAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
             finish()
         }
+
+        buttonGen.setOnClickListener{
+            Password.setText(CustomPasswordGenerator().GeneratePassword(this))
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
