@@ -12,7 +12,7 @@ import com.example.encrypto.sql.ManageDB
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private var wrong = 0
 
