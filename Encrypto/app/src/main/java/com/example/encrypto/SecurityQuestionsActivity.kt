@@ -1,15 +1,16 @@
 package com.example.encrypto
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encrypto.sql.ManageDB
+import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_security_questions.*
 import kotlinx.android.synthetic.main.content_security_questions.*
 
-class SecurityQuestions : AppCompatActivity() {
+class SecurityQuestionsActivity : AppCompatActivity() {
 
     //TODO if wrong 3 times, close app
 
@@ -47,11 +48,30 @@ class SecurityQuestions : AppCompatActivity() {
                         ManageDB().checkSecurityQuestion(this, checkA2.text.toString(), 3) &&
                         ManageDB().checkSecurityQuestion(this, checkA3.text.toString(), 4)
                     ) {
-                        startActivity(Intent(this, ResetPIN::class.java))
+                        startActivity(Intent(this, ResetPINAcitivty::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "This is not you!", Toast.LENGTH_LONG).show()
                         wrong++
+                        when (wrong) {
+                            1 -> Toast.makeText(
+                                this,
+                                "Incorrect answers!\n2 tries left",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            2 -> Toast.makeText(
+                                this,
+                                "Incorrect answers!\n1 try left",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            3 -> {
+                                Toast.makeText(
+                                    this,
+                                    "Incorrect answers!\nClosing app",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                finish()
+                            }
+                        }
                     }
                 }
             }

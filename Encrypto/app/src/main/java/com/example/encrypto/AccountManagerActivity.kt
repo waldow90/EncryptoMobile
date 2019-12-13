@@ -9,12 +9,12 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encrypto.sql.ManageDB
+import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_account_manager.*
 import kotlinx.android.synthetic.main.content_account_manager.*
 
-class AccountManager : AppCompatActivity() {
+class AccountManagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +26,14 @@ class AccountManager : AppCompatActivity() {
         listAccounts.adapter = adapter
 
         listAccounts.setOnItemClickListener { parent, _, position, _ ->
-            val intent = Intent(this, ShowAccount::class.java)
+            val intent = Intent(this, ShowAccountActivity::class.java)
             val selection = parent.getItemAtPosition(position).toString()
             intent.putExtra("Account", selection)
             startActivity(intent)
         }
 
         fab.setOnClickListener {
-            startActivity(Intent(this, AddAccount::class.java))
+            startActivity(Intent(this, AddAccountActivity::class.java))
         }
     }
 
@@ -55,8 +55,9 @@ class AccountManager : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val acc1 = ManageDB().getAccounts(this@AccountManager, "%$newText%")
-                val adapter = ArrayAdapter(this@AccountManager, android.R.layout.simple_list_item_1, acc1)
+                val acc1 = ManageDB()
+                    .getAccounts(this@AccountManagerActivity, "%$newText%")
+                val adapter = ArrayAdapter(this@AccountManagerActivity, android.R.layout.simple_list_item_1, acc1)
                 listAccounts.adapter = adapter
                 return false
             }

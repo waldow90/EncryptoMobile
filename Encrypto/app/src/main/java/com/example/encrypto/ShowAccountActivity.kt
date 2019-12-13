@@ -9,12 +9,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encrypto.sql.ManageDB
+import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
 import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
 
-class ShowAccount : AppCompatActivity() {
+class ShowAccountActivity : AppCompatActivity() {
 
     private var selection: String = ""
 

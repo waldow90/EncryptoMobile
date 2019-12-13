@@ -1,14 +1,8 @@
 package com.example.encrypto
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import com.example.encrypto.sql.ManageDB
-import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

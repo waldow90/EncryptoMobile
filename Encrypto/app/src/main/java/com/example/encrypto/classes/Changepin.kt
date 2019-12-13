@@ -1,4 +1,4 @@
-package com.example.encrypto.sql
+package com.example.encrypto.classes
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,8 +6,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import com.example.encrypto.R
+import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.dialog_change_pin.view.*
-import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
 
 class Changepin {
     fun onClickChangePin(context: Context) {

@@ -2,12 +2,13 @@ package com.example.encrypto
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encrypto.sql.ManageDB
+import com.example.encrypto.classes.CustomPasswordGenerator
+import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_add_account.*
 import kotlinx.android.synthetic.main.content_add_account.*
 
-class AddAccount : AppCompatActivity() {
+class AddAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +17,8 @@ class AddAccount : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fab2.setOnClickListener{
-            ManageDB().addAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
+            ManageDB()
+                .addAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
             finish()
         }
 

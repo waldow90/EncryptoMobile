@@ -12,7 +12,7 @@
             app:summary="The length of the custom generated password"
             app:title="Password length" />
 
-        <com.example.encrypto.ToggleDarkMode
+        <com.example.encrypto.classes.ThemePreference
             android:id="@+id/Theme"
             android:defaultValue="false"
             android:key="settingsTheme"
@@ -21,7 +21,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="TODO">
-        <com.example.encrypto.ChangePin
+        <com.example.encrypto.classes.ChangePinPreference
             android:id="@+id/ChangePin"
             android:defaultValue="Default value"
             android:key="ChangePin"

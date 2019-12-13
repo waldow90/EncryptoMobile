@@ -1,4 +1,4 @@
-package com.example.encrypto
+package com.example.encrypto.classes
 
 import android.content.Context
 import android.util.Base64

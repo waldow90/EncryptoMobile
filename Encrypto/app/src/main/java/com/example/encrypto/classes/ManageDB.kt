@@ -1,7 +1,9 @@
-package com.example.encrypto.sql
+package com.example.encrypto.classes
 
 import android.content.Context
 import androidx.room.Room
+import com.example.encrypto.sql.Database
+import com.example.encrypto.sql.Entity
 
 class ManageDB {
 
@@ -175,7 +177,8 @@ class ManageDB {
         ).fallbackToDestructiveMigration().build()
         var password = ""
         val t = Thread{
-            password = Encryption().decrypt(db.dao().getPassword(account), db.dao().getPin())
+            password = Encryption()
+                .decrypt(db.dao().getPassword(account), db.dao().getPin())
         }
         t.start()
         t.join()
