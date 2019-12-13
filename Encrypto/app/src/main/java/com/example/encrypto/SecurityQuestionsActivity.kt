@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.content_security_questions.*
 
 class SecurityQuestionsActivity : AppCompatActivity() {
 
-    //TODO if wrong 3 times, close app
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_security_questions)

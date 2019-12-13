@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.content_first_login.*
 
 class FirstLoginActivity : AppCompatActivity() {
 
-    //TODO if wrong 3 times, remember when app opens again
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_login)
@@ -56,7 +54,7 @@ class FirstLoginActivity : AppCompatActivity() {
                 }
                 else -> {
                     ManageDB().addDefault(this)
-                    ManageDB().changePin(this, PIN.text.toString())
+                    ManageDB().setupPin(this, PIN.text.toString())
                     ManageDB()
                         .addSecurityQuestion(this, 2, Q1.text.toString(), A1.text.toString())
                     ManageDB()

@@ -56,7 +56,7 @@ class AccountManagerActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val acc1 = ManageDB()
-                    .getAccounts(this@AccountManagerActivity, "%$newText%")
+                    .searchAccounts(this@AccountManagerActivity, "%$newText%")
                 val adapter = ArrayAdapter(this@AccountManagerActivity, android.R.layout.simple_list_item_1, acc1)
                 listAccounts.adapter = adapter
                 return false

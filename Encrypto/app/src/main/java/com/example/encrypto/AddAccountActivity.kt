@@ -2,7 +2,7 @@ package com.example.encrypto
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encrypto.classes.CustomPasswordGenerator
+import com.example.encrypto.classes.PasswordGenerator
 import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_add_account.*
@@ -23,7 +23,7 @@ class AddAccountActivity : AppCompatActivity() {
         }
 
         buttonGen.setOnClickListener{
-            Password.setText(CustomPasswordGenerator().generatePassword(this))
+            Password.setText(PasswordGenerator().generatePassword(this))
         }
     }
 

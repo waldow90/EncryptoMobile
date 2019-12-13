@@ -7,6 +7,25 @@ import com.example.encrypto.sql.Entity
 
 class ManageDB {
 
+    //check if this is first time
+    fun checkFirstTime(context: Context): Boolean{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var ft = ""
+        val t = Thread{
+            ft = db.dao().firstTime()
+        }
+        t.start()
+        t.join()
+        db.close()
+
+        return (ft != "1")
+    }
+
+    //add default value for id = 1
     fun addDefault(context: Context){
         val db = Room.databaseBuilder(
             context,
@@ -28,42 +47,47 @@ class ManageDB {
         db.close()
     }
 
-    fun checkFirstTime(context: Context): Boolean{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var ft = ""
+    //change pin (first time)
+    fun setupPin(context: Context, inputPin: String){
+        val db = Room.databaseBuilder(context, Database::class.java, "DB").fallbackToDestructiveMigration().build()
+
         val t = Thread{
-            ft = db.dao().firstTime()
+            db.dao().changePin(Encryption().encryptPin(inputPin)) //encrypt and save pin to database
         }
         t.start()
         t.join()
         db.close()
-
-        return (ft != "1")
     }
 
-    fun addSecurityQuestion(context: Context, id: Int, question: String, answer: String){
+    //change pin
+    fun changePin(context: Context, inputPin: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
+
         val t = Thread {
-            val q1 = Entity()
-            q1.id = id
-            q1.account = question
-            q1.username = Encryption().encryptPin(answer)
-            q1.password = null
-            db.dao().add(q1)
+            val oldpin = db.dao().getPin() //get the old pin from database
+            val newpin = Encryption().encryptPin(inputPin) //encrypt the new pin
+
+            db.dao().selectAll().forEach{ //go throught each of the accounts, decrypt each password with old pin, and encrypt it with new pin
+                val newacc = Entity()
+                newacc.id = it.id
+                newacc.account = it.account
+                newacc.username = it.username
+                newacc.password = Encryption().encrypt(Encryption().decrypt(it.password!!, oldpin), newpin)
+                db.dao().add(newacc)
+            }
+
+            db.dao().changePin(newpin) //save new pin
         }
         t.start()
         t.join()
         db.close()
     }
 
+    //check if pin is correct
     fun checkPin(context: Context, inputPin: String): Boolean{
         val db = Room.databaseBuilder(
             context,
@@ -80,56 +104,7 @@ class ManageDB {
         return correct
     }
 
-    //TODO IMPORTANT decrypt and encrypt with new pin
-
-    fun changePin(context: Context, inputPin: String){
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        val t = Thread {
-            db.dao().changePin(Encryption().encryptPin(inputPin))
-        }
-        t.start()
-        t.join()
-        db.close()
-    }
-
-    fun getAccounts (context: Context): List<String>{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var accounts: List<String> = emptyList()
-        val t = Thread{
-            accounts = db.dao().getAccounts()
-        }
-        t.start()
-        t.join()
-        db.close()
-
-        return accounts
-    }
-
-    fun getAccounts (context: Context, input: String): List<String>{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var accounts: List<String> = emptyList()
-        val t = Thread{
-            accounts = db.dao().searchAccounts(input)
-        }
-        t.start()
-        t.join()
-        db.close()
-
-        return accounts
-    }
-
+    //add new account to database
     fun addAccount (context: Context, account: String, username: String, password: String){
         val db = Room.databaseBuilder(
             context,
@@ -153,6 +128,58 @@ class ManageDB {
         db.close()
     }
 
+    //get a list of all accounts
+    fun getAccounts (context: Context): List<String>{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var accounts: List<String> = emptyList()
+        val t = Thread{
+            accounts = db.dao().getAccounts()
+        }
+        t.start()
+        t.join()
+        db.close()
+
+        return accounts
+    }
+
+    //get a list of accounts matching the input
+    fun searchAccounts (context: Context, input: String): List<String>{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var accounts: List<String> = emptyList()
+        val t = Thread{
+            accounts = db.dao().searchAccounts(input)
+        }
+        t.start()
+        t.join()
+        db.close()
+
+        return accounts
+    }
+
+    //delete account
+    fun deleteAccount(context: Context, account: String){
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        val t = Thread{
+            db.dao().deleteAccount(account)
+        }
+        t.start()
+        t.join()
+        db.close()
+    }
+
+    //get username from database
     fun getUsername (context: Context, account: String): String{
         val db = Room.databaseBuilder(
             context,
@@ -169,6 +196,7 @@ class ManageDB {
         return username
     }
 
+    //get password from database
     fun getPassword(context: Context, account: String): String{
         val db = Room.databaseBuilder(
             context,
@@ -186,37 +214,27 @@ class ManageDB {
         return password
     }
 
-    fun deleteAccount(context: Context, account: String){
+    //add a security question
+    fun addSecurityQuestion(context: Context, id: Int, question: String, answer: String){
         val db = Room.databaseBuilder(
             context,
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
-        val t = Thread{
-            db.dao().deleteAccount(account)
+        val t = Thread {
+            val q1 = Entity()
+            q1.id = id
+            q1.account = question
+            q1.username = Encryption().encryptPin(answer)
+            q1.password = null
+            db.dao().add(q1)
         }
         t.start()
         t.join()
         db.close()
     }
 
-    fun checkSecurityQuestion(context: Context, answer: String, questionID: Int): Boolean{
-        val db = Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "DB"
-        ).fallbackToDestructiveMigration().build()
-        var dbAnswer = ""
-        val t = Thread{
-            dbAnswer = db.dao().checkSecurityQuestion(questionID)
-        }
-        t.start()
-        t.join()
-        db.close()
-
-        return dbAnswer == answer
-    }
-
+    //get security question from database
     fun getSecurityQuestion(context: Context, questionID: Int): String{
         val db = Room.databaseBuilder(
             context,
@@ -232,5 +250,23 @@ class ManageDB {
         db.close()
 
         return dbQuestion
+    }
+
+    //check if answer to security question is correct
+    fun checkSecurityQuestion(context: Context, answer: String, questionID: Int): Boolean{
+        val db = Room.databaseBuilder(
+            context,
+            Database::class.java,
+            "DB"
+        ).fallbackToDestructiveMigration().build()
+        var dbAnswer = ""
+        val t = Thread{
+            dbAnswer = db.dao().checkSecurityAnswer(questionID)
+        }
+        t.start()
+        t.join()
+        db.close()
+
+        return dbAnswer == answer
     }
 }
