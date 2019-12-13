@@ -11,8 +11,8 @@ interface DAO {
     @Insert(onConflict = REPLACE)
     fun add(add: Entity)
 
-    @Query("SELECT * FROM DB")
-    fun selectAll(): List<Entity>
+    @Query("SELECT * FROM DB WHERE id >= 20")
+    fun selectAllAccounts(): List<Entity>
 
     @Query("UPDATE DB SET username = :PIN WHERE id = 1")
     fun changePin(PIN: String)

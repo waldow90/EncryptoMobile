@@ -71,7 +71,7 @@ class ManageDB {
             val oldpin = db.dao().getPin() //get the old pin from database
             val newpin = Encryption().encryptPin(inputPin) //encrypt the new pin
 
-            db.dao().selectAll().forEach{ //go throught each of the accounts, decrypt each password with old pin, and encrypt it with new pin
+            db.dao().selectAllAccounts().forEach{ //go throught each of the accounts, decrypt each password with old pin, and encrypt it with new pin
                 val newacc = Entity()
                 newacc.id = it.id
                 newacc.account = it.account
