@@ -33,19 +33,19 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, FirstLoginActivity::class.java))
         }
 
-        buttonLogin.setOnClickListener {
+        button_login.setOnClickListener {
             login()
         }
 
-        loginPass.setOnKeyListener(View.OnKeyListener{_, keyCode, event ->
+        et_login_pin.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
-                login()
+                button_login.callOnClick()
                 return@OnKeyListener true
             }
             false
         })
 
-        txtForgotpin.setOnClickListener{
+        tv_forgot_pin.setOnClickListener{
             startActivity(Intent(this, SecurityQuestionsActivity::class.java))
             finish()
         }
@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(){
-        if (ManageDB().checkPin(this, loginPass.text.toString())) {
+        if (ManageDB().checkPin(this, et_login_pin.text.toString())) {
             startActivity(Intent(this, AccountManagerActivity::class.java))
             finish()
         } else {

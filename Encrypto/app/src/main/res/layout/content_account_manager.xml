@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_account_manager">
 
     <ListView
-        android:id="@+id/listAccounts"
+        android:id="@+id/lv_accounts"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clickable="true"

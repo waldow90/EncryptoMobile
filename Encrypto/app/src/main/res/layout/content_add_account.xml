@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_add_account">
 
     <EditText
-        android:id="@+id/Account"
+        android:id="@+id/et_add_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -24,7 +24,7 @@
         android:autofillHints="@string/account_name"/>
 
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/et_add_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -35,11 +35,11 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Account"
+        app:layout_constraintTop_toBottomOf="@+id/et_add_account"
         android:autofillHints="@string/username"/>
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/et_add_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -50,12 +50,12 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Username"
+        app:layout_constraintTop_toBottomOf="@+id/et_add_username"
         tools:ignore="TextFields"
         android:autofillHints="@string/password"/>
 
     <Button
-        android:id="@+id/buttonGen"
+        android:id="@+id/button_generate_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -63,6 +63,6 @@
         android:backgroundTint="@color/colorAccent"
         android:text="@string/generate_custom_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_add_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

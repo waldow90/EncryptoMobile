@@ -2,11 +2,14 @@ package com.example.encrypto
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_first_login.*
 import kotlinx.android.synthetic.main.content_first_login.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class FirstLoginActivity : AppCompatActivity() {
 
@@ -15,52 +18,60 @@ class FirstLoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_first_login)
         setSupportActionBar(toolbar)
 
-        btnSetup.setOnClickListener {
-            when {
-                PIN.text.length < 4 || PIN.text.length > 31 -> {
-                PIN.setText("")
-                    PIN.setHintTextColor(Color.RED)
-                    PIN.hint = getString(R.string.pin_length_warning)
+        et_login_pin.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+                button_setup.callOnClick()
+                return@OnKeyListener true
             }
-                Q1.text.length < 2 || Q1.text.length > 31 -> {
-                    Q1.setText("")
-                    Q1.setHintTextColor(Color.RED)
-                    Q1.hint = getString(R.string.question_cannot_be_empty)
+            false
+        })
+
+        button_setup.setOnClickListener {
+            when {
+                et_setup_pin.text.length < 4 || et_setup_pin.text.length > 31 -> {
+                et_setup_pin.setText("")
+                    et_setup_pin.setHintTextColor(Color.RED)
+                    et_setup_pin.hint = getString(R.string.pin_length_warning)
+            }
+                et_setup_q1.text.length < 2 || et_setup_q1.text.length > 31 -> {
+                    et_setup_q1.setText("")
+                    et_setup_q1.setHintTextColor(Color.RED)
+                    et_setup_q1.hint = getString(R.string.question_cannot_be_empty)
                 }
-                A1.text.length < 2 || A1.text.length > 31 -> {
-                    A1.setText("")
-                    A1.setHintTextColor(Color.RED)
-                    A1.hint = getString(R.string.answer_cannot_be_empty)
+                et_setup_a1.text.length < 2 || et_setup_a1.text.length > 31 -> {
+                    et_setup_a1.setText("")
+                    et_setup_a1.setHintTextColor(Color.RED)
+                    et_setup_a1.hint = getString(R.string.answer_cannot_be_empty)
                 }
-                Q2.text.length < 2 || Q2.text.length > 31 -> {
-                    Q2.setText("")
-                    Q2.setHintTextColor(Color.RED)
-                    Q2.hint = getString(R.string.question_cannot_be_empty)
+                et_setup_q2.text.length < 2 || et_setup_q2.text.length > 31 -> {
+                    et_setup_q2.setText("")
+                    et_setup_q2.setHintTextColor(Color.RED)
+                    et_setup_q2.hint = getString(R.string.question_cannot_be_empty)
                 }
-                A2.text.length < 2 || A2.text.length > 31 -> {
-                    A2.setText("")
-                    A2.setHintTextColor(Color.RED)
-                    A2.hint = getString(R.string.answer_cannot_be_empty)
+                et_setup_a2.text.length < 2 || et_setup_a2.text.length > 31 -> {
+                    et_setup_a2.setText("")
+                    et_setup_a2.setHintTextColor(Color.RED)
+                    et_setup_a2.hint = getString(R.string.answer_cannot_be_empty)
                 }
-                Q3.text.length < 2 || Q3.text.length > 31 -> {
-                    Q3.setText("")
-                    Q3.setHintTextColor(Color.RED)
-                    Q3.hint = getString(R.string.question_cannot_be_empty)
+                et_setup_q3.text.length < 2 || et_setup_q3.text.length > 31 -> {
+                    et_setup_q3.setText("")
+                    et_setup_q3.setHintTextColor(Color.RED)
+                    et_setup_q3.hint = getString(R.string.question_cannot_be_empty)
                 }
-                A3.text.length < 2 || A3.text.length > 31 -> {
-                    A3.setText("")
-                    A3.setHintTextColor(Color.RED)
-                    A3.hint = getString(R.string.answer_cannot_be_empty)
+                et_setup_a3.text.length < 2 || et_setup_a3.text.length > 31 -> {
+                    et_setup_a3.setText("")
+                    et_setup_a3.setHintTextColor(Color.RED)
+                    et_setup_a3.hint = getString(R.string.answer_cannot_be_empty)
                 }
                 else -> {
                     ManageDB().addDefault(this)
-                    ManageDB().setupPin(this, PIN.text.toString())
+                    ManageDB().setupPin(this, et_setup_pin.text.toString())
                     ManageDB()
-                        .addSecurityQuestion(this, 2, Q1.text.toString(), A1.text.toString())
+                        .addSecurityQuestion(this, 2, et_setup_q1.text.toString(), et_setup_a1.text.toString())
                     ManageDB()
-                        .addSecurityQuestion(this, 3, Q2.text.toString(), A2.text.toString())
+                        .addSecurityQuestion(this, 3, et_setup_q2.text.toString(), et_setup_a2.text.toString())
                     ManageDB()
-                        .addSecurityQuestion(this, 4, Q3.text.toString(), A3.text.toString())
+                        .addSecurityQuestion(this, 4, et_setup_q3.text.toString(), et_setup_a3.text.toString())
                     finish()
                 }
             }

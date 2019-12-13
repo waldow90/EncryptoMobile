@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <EditText
-        android:id="@+id/changedialog_oldpin"
+        android:id="@+id/et_changedialog_oldpin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/pin"
@@ -16,7 +16,7 @@
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/changedialog_newpin"
+        android:id="@+id/et_changedialog_newpin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/pin"
@@ -31,7 +31,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/changedialog_buttoncancel"
+            android:id="@+id/button_changedialog_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
@@ -39,7 +39,7 @@
             tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/changedialog_buttonconfirm"
+            android:id="@+id/button_changedialog_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"

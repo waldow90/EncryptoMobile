@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_show_account">
 
     <TextView
-        android:id="@+id/Account"
+        android:id="@+id/et_show_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/Username"
+        android:id="@+id/et_show_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -30,10 +30,10 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Account" />
+        app:layout_constraintTop_toBottomOf="@+id/et_show_account" />
 
     <TextView
-        android:id="@+id/Password"
+        android:id="@+id/et_show_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -43,10 +43,10 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Username" />
+        app:layout_constraintTop_toBottomOf="@+id/et_show_username" />
 
     <Button
-        android:id="@+id/showPass"
+        android:id="@+id/button_show_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -56,10 +56,10 @@
         android:text="@string/show_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_show_password" />
 
     <Button
-        android:id="@+id/btnDelete"
+        android:id="@+id/button_delete_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -69,28 +69,28 @@
         android:text="@string/delete_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showPass" />
+        app:layout_constraintTop_toBottomOf="@+id/button_show_password" />
 
     <ImageButton
-        android:id="@+id/copyPass"
+        android:id="@+id/img_copy_password"
         android:layout_width="42dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@+id/Password"
-        app:layout_constraintTop_toBottomOf="@+id/copyUser"
+        app:layout_constraintStart_toEndOf="@+id/et_show_password"
+        app:layout_constraintTop_toBottomOf="@+id/img_copy_username"
         app:srcCompat="@drawable/ic_content_copy_white_24dp"
         android:contentDescription="@string/copypassimage" />
 
     <ImageButton
-        android:id="@+id/copyUser"
+        android:id="@+id/img_copy_username"
         android:layout_width="42dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="9dp"
         android:backgroundTint="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@+id/Username"
-        app:layout_constraintTop_toBottomOf="@+id/Account"
+        app:layout_constraintStart_toEndOf="@+id/et_show_username"
+        app:layout_constraintTop_toBottomOf="@+id/et_show_account"
         app:srcCompat="@drawable/ic_content_copy_white_24dp"
         android:contentDescription="@string/copyuserimage"/>
 

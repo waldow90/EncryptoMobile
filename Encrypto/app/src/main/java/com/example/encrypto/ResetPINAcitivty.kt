@@ -16,13 +16,13 @@ class ResetPINAcitivty : AppCompatActivity() {
         setContentView(R.layout.activity_reset_pin)
         setSupportActionBar(toolbar)
 
-        buttonReset.setOnClickListener {
-            if (resetPIN.text.length < 4) {
+        button_reset_pin.setOnClickListener {
+            if (et_reset_pin.text.length < 4) {
                 Toast.makeText(this, "PIN should be between 4 and 8 characters", Toast.LENGTH_LONG)
                     .show()
 
             } else {
-                ManageDB().changePin(this, resetPIN.text.toString())
+                ManageDB().changePin(this, et_reset_pin.text.toString())
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }

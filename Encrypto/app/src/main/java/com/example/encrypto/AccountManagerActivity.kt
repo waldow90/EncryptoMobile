@@ -23,16 +23,16 @@ class AccountManagerActivity : AppCompatActivity() {
 
         val acc = ManageDB().getAccounts(this)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, acc)
-        listAccounts.adapter = adapter
+        lv_accounts.adapter = adapter
 
-        listAccounts.setOnItemClickListener { parent, _, position, _ ->
+        lv_accounts.setOnItemClickListener { parent, _, position, _ ->
             val intent = Intent(this, ShowAccountActivity::class.java)
             val selection = parent.getItemAtPosition(position).toString()
             intent.putExtra("Account", selection)
             startActivity(intent)
         }
 
-        fab.setOnClickListener {
+        fab_add_account.setOnClickListener {
             startActivity(Intent(this, AddAccountActivity::class.java))
         }
     }
@@ -58,7 +58,7 @@ class AccountManagerActivity : AppCompatActivity() {
                 val acc1 = ManageDB()
                     .searchAccounts(this@AccountManagerActivity, "%$newText%")
                 val adapter = ArrayAdapter(this@AccountManagerActivity, android.R.layout.simple_list_item_1, acc1)
-                listAccounts.adapter = adapter
+                lv_accounts.adapter = adapter
                 return false
             }
 

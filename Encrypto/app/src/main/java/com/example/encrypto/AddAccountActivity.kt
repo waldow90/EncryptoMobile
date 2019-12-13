@@ -1,6 +1,8 @@
 package com.example.encrypto
 
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.classes.PasswordGenerator
 import com.example.encrypto.classes.ManageDB
@@ -16,14 +18,23 @@ class AddAccountActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        fab2.setOnClickListener{
+        fab_add_confirm.setOnClickListener{
             ManageDB()
-                .addAccount(this, Account.text.toString(), Username.text.toString(), Password.text.toString())
+                .addAccount(this, et_add_account.text.toString(), et_add_username.text.toString(), et_add_password.text.toString())
             finish()
         }
 
-        buttonGen.setOnClickListener{
-            Password.setText(PasswordGenerator().generatePassword(this))
+        et_add_password.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+                fab_add_confirm.callOnClick()
+                return@OnKeyListener true
+            }
+            false
+        })
+
+
+        button_generate_password.setOnClickListener{
+            et_add_password.setText(PasswordGenerator().generatePassword(this))
         }
     }
 

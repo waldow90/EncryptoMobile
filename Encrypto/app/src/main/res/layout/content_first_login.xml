@@ -8,8 +8,20 @@
     tools:context=".FirstLoginActivity"
     tools:showIn="@layout/activity_first_login">
 
+    <TextView
+        android:id="@+id/tv_setup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/please_setup_your_security_settings"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/PIN"
+        android:id="@+id/et_setup_pin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
@@ -20,13 +32,13 @@
         android:inputType="numberPassword"
         android:maxLength="8"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/Q1"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_q1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_setup" />
 
     <EditText
-        android:id="@+id/Q1"
+        android:id="@+id/et_setup_q1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -36,13 +48,13 @@
         android:hint="@string/question_1"
         android:inputType="textPersonName"
         android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/A1"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_a1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PIN" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_pin" />
 
     <EditText
-        android:id="@+id/A1"
+        android:id="@+id/et_setup_a1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -51,14 +63,14 @@
         android:ems="10"
         android:hint="@string/answer_1"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/Q2"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_q2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Q1" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_q1" />
 
     <EditText
-        android:id="@+id/Q2"
+        android:id="@+id/et_setup_q2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -67,14 +79,14 @@
         android:ems="10"
         android:hint="@string/question_2"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/A2"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_a2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A1" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_a1" />
 
     <EditText
-        android:id="@+id/A2"
+        android:id="@+id/et_setup_a2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -83,14 +95,14 @@
         android:ems="10"
         android:hint="@string/answer_2"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/Q3"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_q3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Q2" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_q2" />
 
     <EditText
-        android:id="@+id/Q3"
+        android:id="@+id/et_setup_q3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -99,14 +111,14 @@
         android:ems="10"
         android:hint="@string/question_3"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/A3"
+        app:layout_constraintBottom_toTopOf="@+id/et_setup_a3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A2" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_a2" />
 
     <EditText
-        android:id="@+id/A3"
+        android:id="@+id/et_setup_a3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -116,14 +128,14 @@
         android:ems="10"
         android:hint="@string/answer_3"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnSetup"
+        app:layout_constraintBottom_toTopOf="@+id/button_setup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Q3" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_q3" />
 
     <Button
-        android:id="@+id/btnSetup"
+        android:id="@+id/button_setup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
@@ -134,18 +146,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A3" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/please_setup_your_security_settings"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/et_setup_a3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
