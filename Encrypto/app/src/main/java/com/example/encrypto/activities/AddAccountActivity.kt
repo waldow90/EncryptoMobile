@@ -1,9 +1,10 @@
-package com.example.encrypto
+package com.example.encrypto.activities
 
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.encrypto.R
 import com.example.encrypto.classes.PasswordGenerator
 import com.example.encrypto.classes.ManageDB
 

@@ -1,9 +1,10 @@
-package com.example.encrypto
+package com.example.encrypto.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.encrypto.R
 import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_reset_pin.*

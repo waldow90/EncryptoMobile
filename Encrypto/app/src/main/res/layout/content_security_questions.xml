@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".SecurityQuestionsActivity"
+    tools:context=".activities.SecurityQuestionsActivity"
     tools:showIn="@layout/activity_security_questions">
 
     <TextView

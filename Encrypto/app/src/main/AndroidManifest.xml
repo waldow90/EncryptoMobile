@@ -13,39 +13,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".AccountManagerActivity" />
+            android:value=".activities.AccountManagerActivity" />
 
         <activity
-            android:name=".ResetPINAcitivty"
+            android:name=".activities.ResetPINAcitivty"
             android:label="@string/title_activity_reset_pin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SecurityQuestionsActivity"
+            android:name=".activities.SecurityQuestionsActivity"
             android:label="@string/title_activity_security_questions"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ShowAccountActivity"
+            android:name=".activities.ShowAccountActivity"
             android:label="@string/title_activity_show_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddAccountActivity"
+            android:name=".activities.AddAccountActivity"
             android:label="@string/title_activity_add_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AccountManagerActivity"
+            android:name=".activities.AccountManagerActivity"
             android:label="@string/title_activity_account_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FirstLoginActivity"
+            android:name=".activities.FirstLoginActivity"
             android:label="@string/title_activity_first_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.encrypto
+package com.example.encrypto.activities
 
 import android.app.SearchManager
 import android.content.Context
@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.encrypto.R
 import com.example.encrypto.classes.ManageDB
 
 import kotlinx.android.synthetic.main.activity_account_manager.*
