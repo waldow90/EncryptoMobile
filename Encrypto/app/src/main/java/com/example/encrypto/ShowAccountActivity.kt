@@ -31,24 +31,24 @@ class ShowAccountActivity : AppCompatActivity() {
         et_show_username.text = ManageDB().getUsername(this, selection)
 
         button_show_password.setOnClickListener {
-            val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
-            val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
+            val view = View.inflate(this, R.layout.dialog_confirm_pin, null)
+            val builder = AlertDialog.Builder(this)
+                .setView(view)
                 .setTitle("Confrim Identity")
-            val mAlertDialog = mBuilder.show()
-            mDialogView.button_confirmdialog_confirm.setOnClickListener {
-                mAlertDialog.dismiss()
-                showpass(mDialogView)
+            val dialog = builder.show()
+            view.button_confirmdialog_confirm.setOnClickListener {
+                dialog.dismiss()
+                showpass(view)
             }
-            mDialogView.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            view.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     button_confirmdialog_confirm.callOnClick()
                     return@OnKeyListener true
                 }
                 return@OnKeyListener false
             })
-            mDialogView.button_confirmdialog_cancel.setOnClickListener {
-                mAlertDialog.dismiss()
+            view.button_confirmdialog_cancel.setOnClickListener {
+                dialog.dismiss()
             }
         }
 
@@ -75,31 +75,31 @@ class ShowAccountActivity : AppCompatActivity() {
         }
 
         button_delete_password.setOnClickListener {
-            val mDialogView = View.inflate(this, R.layout.dialog_confirm_pin, null)
-            val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
+            val view = View.inflate(this, R.layout.dialog_confirm_pin, null)
+            val builder = AlertDialog.Builder(this)
+                .setView(view)
                 .setTitle("Confirm Identity")
-            val mAlertDialog = mBuilder.show()
-            mDialogView.button_confirmdialog_confirm.setOnClickListener {
-                mAlertDialog.dismiss()
-                delacc(mDialogView)
+            val dialog = builder.show()
+            view.button_confirmdialog_confirm.setOnClickListener {
+                dialog.dismiss()
+                delacc(view)
             }
-            mDialogView.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            view.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    delacc(mDialogView)
-                    mAlertDialog.dismiss()
+                    delacc(view)
+                    dialog.dismiss()
                     return@OnKeyListener true
                 }
                 return@OnKeyListener false
             })
-            mDialogView.button_confirmdialog_cancel.setOnClickListener {
-                mAlertDialog.dismiss()
+            view.button_confirmdialog_cancel.setOnClickListener {
+                dialog.dismiss()
             }
         }
     }
 
-    private fun showpass(mDialogView: View) {
-        val pin = mDialogView.et_confirmdialog_pin.text.toString()
+    private fun showpass(view: View) {
+        val pin = view.et_confirmdialog_pin.text.toString()
         if (ManageDB().checkPin(this, pin)) {
             et_show_password.text = ManageDB().getPassword(this, selection)
         } else {
@@ -108,8 +108,8 @@ class ShowAccountActivity : AppCompatActivity() {
         }
     }
 
-    private fun delacc(mDialogView: View) {
-        val pin = mDialogView.et_confirmdialog_pin.text.toString()
+    private fun delacc(view: View) {
+        val pin = view.et_confirmdialog_pin.text.toString()
         if (ManageDB().checkPin(this, pin)) {
             ManageDB().deleteAccount(this, selection)
             finish()
