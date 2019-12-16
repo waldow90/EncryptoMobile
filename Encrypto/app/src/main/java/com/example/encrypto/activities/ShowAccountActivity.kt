@@ -1,12 +1,13 @@
 package com.example.encrypto.activities
 
-import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
+import android.os.Handler
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.R
@@ -15,7 +16,6 @@ import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
 import kotlinx.android.synthetic.main.dialog_confirm_pin.*
-import kotlinx.android.synthetic.main.dialog_confirm_pin.view.*
 
 class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDialogListener {
 
@@ -40,7 +40,6 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
             dialog.show(supportFragmentManager, "HELLO")
             whatToDo = true
         }
-
 
         img_copy_username.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

@@ -19,7 +19,7 @@ class FirstLoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_first_login)
         setSupportActionBar(toolbar)
 
-        et_login_pin.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
+        et_setup_pin.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
                 button_setup.callOnClick()
                 return@OnKeyListener true

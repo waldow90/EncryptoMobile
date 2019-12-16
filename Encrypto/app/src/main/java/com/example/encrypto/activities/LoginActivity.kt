@@ -1,9 +1,14 @@
 package com.example.encrypto.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +18,14 @@ import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+
 class LoginActivity : AppCompatActivity() {
 
     private var wrong = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.example.encrypto.R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         val settingsprefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
@@ -34,34 +40,44 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, FirstLoginActivity::class.java))
         }
 
+        et_login_pin.showKeyboard()
+
+        et_login_pin.requestFocus()
+        val t = Thread {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(et_login_pin, SHOW_IMPLICIT)
+        }
+        Handler().postDelayed(t, 100)
+
         button_login.setOnClickListener {
             login()
         }
 
-        et_login_pin.setOnKeyListener(View.OnKeyListener{ _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+        et_login_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 button_login.callOnClick()
                 return@OnKeyListener true
             }
             false
         })
 
-        tv_forgot_pin.setOnClickListener{
+        tv_forgot_pin.setOnClickListener {
             startActivity(Intent(this, SecurityQuestionsActivity::class.java))
             finish()
         }
 
         var click = 0
-        loginlogo.setOnClickListener{
+        loginlogo.setOnClickListener {
             click++
-            if (click in 5..9){
+            if (click in 5..9) {
                 loginlogo.visibility = ImageView.INVISIBLE
                 imageView.visibility = ImageView.VISIBLE
             }
         }
-        imageView.setOnClickListener{
+        imageView.setOnClickListener {
             click++
-            if (click >= 10){
+            if (click >= 10) {
                 loginlogo.visibility = ImageView.VISIBLE
                 imageView.visibility = ImageView.INVISIBLE
                 click = 0
@@ -69,7 +85,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login(){
+    private fun EditText.showKeyboard() {
+        this.requestFocus()
+        val t = Thread {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(this, SHOW_IMPLICIT)
+        }
+        Handler().postDelayed(t, 100)
+    }
+
+    private fun login() {
         if (ManageDB().checkPin(this, et_login_pin.text.toString())) {
             startActivity(Intent(this, AccountManagerActivity::class.java))
             finish()
