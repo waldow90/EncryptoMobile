@@ -38,11 +38,11 @@ class ShowAccountActivity : AppCompatActivity() {
             val dialog = builder.show()
             view.button_confirmdialog_confirm.setOnClickListener {
                 dialog.dismiss()
-                showpass(view)
+                showpass(view.et_confirmdialog_pin.text.toString())
             }
             view.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    button_confirmdialog_confirm.callOnClick()
+                    view.button_confirmdialog_confirm.callOnClick()
                     return@OnKeyListener true
                 }
                 return@OnKeyListener false
@@ -64,14 +64,26 @@ class ShowAccountActivity : AppCompatActivity() {
         }
 
         img_copy_password.setOnClickListener {
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("label", et_show_password.text.toString())
-            clipboard.setPrimaryClip(clip)
-            Toast.makeText(
-                this,
-                "Copied Password!",
-                Toast.LENGTH_SHORT
-            ).show()
+
+            val view = View.inflate(this, R.layout.dialog_confirm_pin, null)
+            val builder = AlertDialog.Builder(this)
+                .setView(view)
+                .setTitle("Confirm Identity")
+            val dialog = builder.show()
+            view.button_confirmdialog_confirm.setOnClickListener {
+                dialog.dismiss()
+                copyPass(et_confirmdialog_pin.text.toString())
+            }
+            view.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    view.button_confirmdialog_confirm.callOnClick()
+                    return@OnKeyListener true
+                }
+                return@OnKeyListener false
+            })
+            view.button_confirmdialog_cancel.setOnClickListener {
+                dialog.dismiss()
+            }
         }
 
         button_delete_password.setOnClickListener {
@@ -82,12 +94,11 @@ class ShowAccountActivity : AppCompatActivity() {
             val dialog = builder.show()
             view.button_confirmdialog_confirm.setOnClickListener {
                 dialog.dismiss()
-                delacc(view)
+                delacc(view.et_confirmdialog_pin.text.toString())
             }
             view.et_confirmdialog_pin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    delacc(view)
-                    dialog.dismiss()
+                    view.button_confirmdialog_confirm.callOnClick()
                     return@OnKeyListener true
                 }
                 return@OnKeyListener false
@@ -98,8 +109,7 @@ class ShowAccountActivity : AppCompatActivity() {
         }
     }
 
-    private fun showpass(view: View) {
-        val pin = view.et_confirmdialog_pin.text.toString()
+    private fun showpass(pin: String) {
         if (ManageDB().checkPin(this, pin)) {
             et_show_password.text = ManageDB().getPassword(this, selection)
         } else {
@@ -108,8 +118,23 @@ class ShowAccountActivity : AppCompatActivity() {
         }
     }
 
-    private fun delacc(view: View) {
-        val pin = view.et_confirmdialog_pin.text.toString()
+    private fun delacc(pin: String) {
+        if (ManageDB().checkPin(this, pin)) {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", et_show_password.text.toString())
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(
+                this,
+                "Copied Password!",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun copyPass(pin: String) {
         if (ManageDB().checkPin(this, pin)) {
             ManageDB().deleteAccount(this, selection)
             finish()
