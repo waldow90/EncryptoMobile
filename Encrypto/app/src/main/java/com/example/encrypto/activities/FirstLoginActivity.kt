@@ -7,10 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.R
 import com.example.encrypto.classes.ManageDB
-
 import kotlinx.android.synthetic.main.activity_first_login.*
 import kotlinx.android.synthetic.main.content_first_login.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class FirstLoginActivity : AppCompatActivity() {
 

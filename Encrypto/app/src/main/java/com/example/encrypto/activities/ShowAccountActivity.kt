@@ -4,10 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.R
@@ -15,7 +12,6 @@ import com.example.encrypto.classes.ConfirmPinDialog
 import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
-import kotlinx.android.synthetic.main.dialog_confirm_pin.*
 
 class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDialogListener {
 
@@ -66,6 +62,7 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
         button_delete_password.setOnClickListener {
             val dialog = ConfirmPinDialog()
             dialog.show(supportFragmentManager, "HELLO")
+            whatToDo = false
         }
     }
 
@@ -75,14 +72,7 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
                 et_show_password.text = ManageDB().getPassword(this, selection)
                 img_copy_password.visibility = View.VISIBLE
             } else {
-                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("label", et_show_password.text.toString())
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(
-                    this,
-                    "Copied Password!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                ManageDB().deleteAccount(this, selection)
             }
         } else {
             Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)

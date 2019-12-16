@@ -3,7 +3,6 @@ package com.example.encrypto.classes
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 
 class ThemePreference : SwitchPreference {
