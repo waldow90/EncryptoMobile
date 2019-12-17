@@ -24,20 +24,25 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //get account name from intent
         selection = intent.getStringExtra("Account")!!
         et_show_account.text = selection
 
+        //get username from database
         et_show_username.text = ManageDB().getUsername(this, selection)
 
+        //make button for copying password invisible
         img_copy_password.visibility = View.INVISIBLE
 
         button_show_password.setOnClickListener {
+            //show dialog to confirm pin
             val dialog = ConfirmPinDialog()
             dialog.show(supportFragmentManager, "HELLO")
             whatToDo = true
         }
 
         img_copy_username.setOnClickListener {
+            //copy username to clipboard
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", et_show_username.text.toString())
             clipboard.setPrimaryClip(clip)
@@ -49,6 +54,7 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
         }
 
         img_copy_password.setOnClickListener {
+            //copy password to clipboard
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", et_show_password.text.toString())
             clipboard.setPrimaryClip(clip)
@@ -60,6 +66,7 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
         }
 
         button_delete_password.setOnClickListener {
+            //show dialog to confirm pin
             val dialog = ConfirmPinDialog()
             dialog.show(supportFragmentManager, "HELLO")
             whatToDo = false
@@ -69,9 +76,11 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
     override fun checkPin(pin: String) {
         if (ManageDB().checkPin(this, pin)) {
             if (whatToDo) {
+                //show password and button to copy password
                 et_show_password.text = ManageDB().getPassword(this, selection)
                 img_copy_password.visibility = View.VISIBLE
             } else {
+                //delete account
                 ManageDB().deleteAccount(this, selection)
             }
         } else {

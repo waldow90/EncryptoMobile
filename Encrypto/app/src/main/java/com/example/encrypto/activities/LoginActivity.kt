@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(et_login_pin, SHOW_IMPLICIT)
         }
-        Handler().postDelayed(t, 100)
+        Handler().postDelayed(t, 200)
 
         button_login.setOnClickListener {
             login()
@@ -124,5 +124,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }

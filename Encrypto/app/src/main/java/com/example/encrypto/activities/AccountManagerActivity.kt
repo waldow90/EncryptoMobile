@@ -62,7 +62,6 @@ class AccountManagerActivity : AppCompatActivity() {
                 lv_accounts.adapter = adapter
                 return false
             }
-
         })
         return true
     }
