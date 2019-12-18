@@ -18,9 +18,6 @@
             android:key="settingsTheme"
             android:title="Enable dark theme" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="TODO">
         <com.example.encrypto.classes.ChangePinPreference
             android:id="@+id/ChangePin"
             android:defaultValue="Default value"

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -31,7 +32,17 @@ class ConfirmPinDialog : AppCompatDialogFragment() {
                 val pin = etPin.text.toString()
                 listener.checkPin(pin)
             }
-        etPin.requestFocus()
+        listener.openKeyboard(etPin)
+
+        etPin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                val pin = etPin.text.toString()
+                listener.checkPin(pin)
+                dialog?.dismiss()
+                return@OnKeyListener true
+            }
+            false
+        })
         return builder.create()
     }
 
@@ -47,6 +58,10 @@ class ConfirmPinDialog : AppCompatDialogFragment() {
 
     interface ConfirmPinDialogListener {
         fun checkPin(pin: String) {
+
+        }
+
+        fun openKeyboard(etPin: EditText){
 
         }
     }

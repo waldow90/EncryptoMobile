@@ -4,7 +4,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encrypto.R
@@ -12,6 +15,7 @@ import com.example.encrypto.classes.ConfirmPinDialog
 import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
+import kotlinx.android.synthetic.main.dialog_confirm_pin.*
 
 class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDialogListener {
 
@@ -87,6 +91,16 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
             Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
                 .show()
         }
+    }
+
+    override fun openKeyboard(etPin: EditText) {
+        val t = Thread {
+            etPin.requestFocus()
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(etPin, InputMethodManager.SHOW_IMPLICIT)
+        }
+        Handler().postDelayed(t, 200)
     }
 
     override fun onSupportNavigateUp(): Boolean {
