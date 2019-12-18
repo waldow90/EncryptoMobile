@@ -10,15 +10,24 @@ import androidx.preference.Preference
 import com.example.encrypto.R
 import kotlinx.android.synthetic.main.dialog_change_pin.view.*
 
-class ChangePinPreference: Preference {
+class ChangePinPreference : Preference {
 
-    constructor(context: Context): super(context)
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    )
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes
+    )
 
     override fun onClick() {
         onClickChangePin(context)
@@ -30,37 +39,42 @@ class ChangePinPreference: Preference {
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
             .setTitle("Change PIN")
+            .setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
+            }
+            .setPositiveButton("Confirm") { _, _ ->
+                if (mDialogView.et_changedialog_oldpin.text.toString().length > 3 && mDialogView.et_changedialog_newpin.text.toString().length > 3) {
+                    val oldpin = mDialogView.et_changedialog_oldpin.text.toString()
+                    val newpin = mDialogView.et_changedialog_newpin.text.toString()
+                    checkPin(oldpin, newpin, context)
+                } else {
+                    Toast.makeText(context, "Please enter a valid PIN", Toast.LENGTH_LONG).show()
+                }
+            }
         val mAlertDialog = mBuilder.show()
-        mDialogView.button_changedialog_confirm.setOnClickListener {
-            mAlertDialog.dismiss()
-            checkPin(mDialogView, context)
-        }
         mDialogView.et_changedialog_newpin.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                checkPin(mDialogView, context)
+                if (mDialogView.et_changedialog_oldpin.text.toString().length > 3 && mDialogView.et_changedialog_newpin.text.toString().length > 3) {
+                    val oldpin = mDialogView.et_changedialog_oldpin.text.toString()
+                    val newpin = mDialogView.et_changedialog_newpin.text.toString()
+                    checkPin(oldpin, newpin, context)
+                } else {
+                    Toast.makeText(context, "Please enter a valid PIN", Toast.LENGTH_LONG).show()
+                }
                 mAlertDialog.dismiss()
                 return@OnKeyListener true
             }
             return@OnKeyListener false
         })
-        mDialogView.button_changedialog_cancel.setOnClickListener {
-            mAlertDialog.dismiss()
-        }
     }
 
-    private fun checkPin(view: View, context: Context) {
-        val pin = view.et_changedialog_oldpin.text.toString()
-        if (ManageDB().checkPin(context, pin)) {
-            changePin(view, context)
+    private fun checkPin(newpin: String, oldpin: String, context: Context) {
+        if (ManageDB().checkPin(context, oldpin)) {
+            ManageDB().changePin(context, newpin)
+            Toast.makeText(context, "PIN changed", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(context, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)
                 .show()
         }
     }
-
-    private fun changePin(view: View, context: Context) {
-        Toast.makeText(context, "PIN changed", Toast.LENGTH_LONG).show()
-        ManageDB().changePin(context, view.et_changedialog_newpin.text.toString())
-    }
-
 }

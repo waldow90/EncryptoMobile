@@ -29,8 +29,12 @@ class ConfirmPinDialog : AppCompatDialogFragment() {
                 Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
             }
             .setPositiveButton("Confirm") { _, _ ->
-                val pin = etPin.text.toString()
-                listener.checkPin(pin)
+                if(etPin.text.toString().length > 3) {
+                    val pin = etPin.text.toString()
+                    listener.checkPin(pin)
+                }else{
+                    Toast.makeText(context, "Please enter a valid PIN", Toast.LENGTH_LONG).show()
+                }
             }
         listener.openKeyboard(etPin)
 
