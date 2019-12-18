@@ -15,7 +15,6 @@ import com.example.encrypto.classes.ConfirmPinDialog
 import com.example.encrypto.classes.ManageDB
 import kotlinx.android.synthetic.main.activity_show_account.*
 import kotlinx.android.synthetic.main.content_show_account.*
-import kotlinx.android.synthetic.main.dialog_confirm_pin.*
 
 class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDialogListener {
 
