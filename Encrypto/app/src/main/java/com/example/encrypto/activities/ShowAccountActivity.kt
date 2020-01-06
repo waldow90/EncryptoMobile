@@ -77,14 +77,17 @@ class ShowAccountActivity : AppCompatActivity(), ConfirmPinDialog.ConfirmPinDial
     }
 
     override fun checkPin(pin: String) {
-        if (ManageDB().checkPin(this, pin)) {
+        val db = ManageDB()
+
+        if (db.checkPin(this, pin)) {
             if (whatToDo) {
                 //show password and button to copy password
-                et_show_password.text = ManageDB().getPassword(this, selection)
+                et_show_password.text = db.getPassword(this, selection)
                 img_copy_password.visibility = View.VISIBLE
             } else {
                 //delete account
-                ManageDB().deleteAccount(this, selection)
+                db.deleteAccount(this, selection)
+                finish()
             }
         } else {
             Toast.makeText(this, "Incorrect PIN!\nNo action taken", Toast.LENGTH_LONG)

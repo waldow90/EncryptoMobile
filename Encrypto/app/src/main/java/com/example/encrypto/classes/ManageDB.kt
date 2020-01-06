@@ -94,9 +94,11 @@ class ManageDB {
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
+
+        val encryption = Encryption()
         var correct = false
         val t = Thread{
-            correct = Encryption().checkPin(db.dao().getPin(), inputPin)
+            correct = encryption.checkPin(db.dao().getPin(), inputPin)
         }
         t.start()
         t.join()
@@ -111,6 +113,8 @@ class ManageDB {
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
+
+        val encryption = Encryption()
         val t = Thread{
             val new = Entity()
             var id = db.dao().lastId() + 1
@@ -120,7 +124,7 @@ class ManageDB {
             new.id = id
             new.account = account
             new.username = username
-            new.password = Encryption().encrypt(password, db.dao().getPin())
+            new.password = encryption.encrypt(password, db.dao().getPin())
             db.dao().add(new)
         }
         t.start()
@@ -203,9 +207,11 @@ class ManageDB {
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
+
+        val encryption = Encryption()
         var password = ""
         val t = Thread{
-            password = Encryption()
+            password = encryption
                 .decrypt(db.dao().getPassword(account), db.dao().getPin())
         }
         t.start()
@@ -221,11 +227,13 @@ class ManageDB {
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
+
+        val encryption = Encryption()
         val t = Thread {
             val q1 = Entity()
             q1.id = id
             q1.account = question
-            q1.username = Encryption().encryptPin(answer)
+            q1.username = encryption.encryptPin(answer)
             q1.password = null
             db.dao().add(q1)
         }
