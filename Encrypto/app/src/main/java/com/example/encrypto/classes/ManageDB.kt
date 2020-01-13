@@ -12,7 +12,7 @@ class ManageDB {
     //check if this is first time
     fun checkFirstTime(context: Context): Boolean{
         val db = Room.databaseBuilder(
-            context,git ad
+            context,
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
