@@ -6,11 +6,13 @@ import com.example.encrypto.sql.Database
 import com.example.encrypto.sql.Entity
 
 class ManageDB {
+    
+    private val encryption = Encryption()
 
     //check if this is first time
     fun checkFirstTime(context: Context): Boolean{
         val db = Room.databaseBuilder(
-            context,
+            context,git ad
             Database::class.java,
             "DB"
         ).fallbackToDestructiveMigration().build()
@@ -40,7 +42,6 @@ class ManageDB {
             test.username = ""
             test.password = null
             db.dao().add(test)
-
         }
         t.start()
         t.join()
@@ -52,7 +53,7 @@ class ManageDB {
         val db = Room.databaseBuilder(context, Database::class.java, "DB").fallbackToDestructiveMigration().build()
 
         val t = Thread{
-            db.dao().changePin(Encryption().encryptPin(inputPin)) //encrypt and save pin to database
+            db.dao().changePin(encryption.encryptPin(inputPin)) //encrypt and save pin to database
         }
         t.start()
         t.join()
@@ -69,14 +70,14 @@ class ManageDB {
 
         val t = Thread {
             val oldpin = db.dao().getPin() //get the old pin from database
-            val newpin = Encryption().encryptPin(inputPin) //encrypt the new pin
+            val newpin = encryption.encryptPin(inputPin) //encrypt the new pin
 
             db.dao().selectAllAccounts().forEach{ //go throught each of the accounts, decrypt each password with old pin, and encrypt it with new pin
                 val newacc = Entity()
                 newacc.id = it.id
                 newacc.account = it.account
                 newacc.username = it.username
-                newacc.password = Encryption().encrypt(Encryption().decrypt(it.password!!, oldpin), newpin)
+                newacc.password = encryption.encrypt(encryption.decrypt(it.password!!, oldpin), newpin)
                 db.dao().add(newacc)
             }
 
@@ -95,7 +96,6 @@ class ManageDB {
             "DB"
         ).fallbackToDestructiveMigration().build()
 
-        val encryption = Encryption()
         var correct = false
         val t = Thread{
             correct = encryption.checkPin(db.dao().getPin(), inputPin)
@@ -114,7 +114,6 @@ class ManageDB {
             "DB"
         ).fallbackToDestructiveMigration().build()
 
-        val encryption = Encryption()
         val t = Thread{
             val new = Entity()
             var id = db.dao().lastId() + 1
@@ -208,7 +207,6 @@ class ManageDB {
             "DB"
         ).fallbackToDestructiveMigration().build()
 
-        val encryption = Encryption()
         var password = ""
         val t = Thread{
             password = encryption
@@ -228,7 +226,6 @@ class ManageDB {
             "DB"
         ).fallbackToDestructiveMigration().build()
 
-        val encryption = Encryption()
         val t = Thread {
             val q1 = Entity()
             q1.id = id
